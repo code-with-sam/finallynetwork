@@ -17,6 +17,11 @@ html
       script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js")
       script(src="//cdn.steemjs.com/lib/latest/steem.min.js")
       script(src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js")
+
+      if theme == 'lens'
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js")
+        script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js")
+
       script(src=`/js/${theme}-theme.js`)
     else
       script(src="/js/main.js")
