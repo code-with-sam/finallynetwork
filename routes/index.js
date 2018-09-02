@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-let utopian = require('utopian-api');
-var rp = require('request-promise');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const domain = req.headers.host;
   const subDomain = domain.split('.');
+  const theme = 'hckr'
 
   if(subDomain.length > 2) {
       username = subDomain[0]
