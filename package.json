@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/code-with-sam/finallynetwork#readme",
   "dependencies": {
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",

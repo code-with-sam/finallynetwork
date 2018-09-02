@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
+// testing
+const THEME = 'lens'
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const domain = req.headers.host;
   const subDomain = domain.split('.');
-  const theme = 'hckr'
 
   if(subDomain.length > 2) {
       username = subDomain[0]
-      res.render('profile', {username} );
+      res.render('profile', {username, theme : THEME } );
   } else {
       res.render('index');
   }
@@ -24,7 +25,7 @@ router.get('/@:username', (req, res) => {
   if(subDomain.length > 2) {
       res.redirect('/');
   } else {
-      res.render('profile', {username} );
+      res.render('profile', {username, theme : THEME } );
   }
 });
 
@@ -35,7 +36,7 @@ router.get('/:permlink', (req, res) => {
   const permlink = req.params.permlink
 
   if(subDomain.length > 2) {
-    res.render('single', {username, permlink} );
+    res.render('single', {username, permlink, theme : THEME } );
   } else {
     let err = new Error('Not Found');
     err.status = 404;
@@ -45,7 +46,7 @@ router.get('/:permlink', (req, res) => {
 router.get('/@:username/:permlink', (req, res) => {
   const username = req.params.username
   const permlink = req.params.permlink
-  res.render('single', {username, permlink} );
+  res.render('single', {username, permlink, theme : THEME } );
 });
 
 module.exports = router;
