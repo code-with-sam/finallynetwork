@@ -77,7 +77,7 @@ const hckr = {
 
   blogFeedItemTemplate(post){
     return `<div>
-      <h2><a href="@${hckr.username}/${post.permlink}"> ${post.title}</a></h2>
+      <h2><a href="/@${hckr.username}/${post.permlink}"> ${post.title}</a></h2>
       <h3>${moment(post.created).format("DD/MM/YY")  } | comments: ${post.children} | votes: ${post.net_votes}</h3>
     </div>`
   }
