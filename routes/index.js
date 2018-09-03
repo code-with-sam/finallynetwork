@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // testing
-const THEME = 'lens'
+const THEME = 'hckr'
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

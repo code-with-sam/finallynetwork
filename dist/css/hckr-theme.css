@@ -100,3 +100,9 @@ pre > code {
   padding: 0;
   border: none;
 }
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}

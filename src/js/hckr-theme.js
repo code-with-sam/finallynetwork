@@ -1,3 +1,7 @@
+
+import finallycomments from 'finallycomments'
+import purify from 'dompurify'
+
 const hckr = {
   permlink: $('main').data('permlink'),
   username: $('main').data('username'),
@@ -7,6 +11,7 @@ const hckr = {
     $('main').addClass('hckr-theme')
     hckr.uiActions()
     hckr.isBlogFeed() ? hckr.initBlogFeed(false) : hckr.loadSinglePost()
+
   },
 
   uiActions() {
@@ -21,24 +26,37 @@ const hckr = {
   },
 
   async loadSinglePost(){
+    finallycomments.init()
     const postData = await steem.api.getContentAsync(hckr.username, hckr.permlink)
     hckr.appendSingePostContent(postData)
-    // finallycomments.init()
-    // finallycomments.loadEmbed('.single-post__finally-comments')
+    hckr.appendSinglePostComments()
   },
 
   appendSingePostContent(post) {
     var converter = new showdown.Converter();
     // var html = purify.sanitize(converter.makeHtml(post.body))
     var html = converter.makeHtml(post.body)
-    let template = `<h2>${post.title}</h2>${html}`
+    let template = `<a href="/@${hckr.username}/" class="back-btn">⬅</a><h2>${post.title}</h2>${html}`
     $('main').append(template)
+  },
+  appendSinglePostComments() {
+    $('main').append(
+    `<section class="post__comments"
+    data-id="https://steemit.com/${postData.category}/@${postData.author}/${hckr.permlink}"
+    data-reputation="false"
+    data-values="false"
+    data-profile="false"
+    data-generated="false"
+    data-beneficiary="finallycomments"
+    data-beneficiaryWeight="25"
+    data-guestComments="false">
+    </section>`)
+      finallycomments.loadEmbed('.post__comments')
   },
 
   initBlogFeed(){
     $('main').append(hckr.blogFeedTemplate())
     hckr.loadUserPosts(false)
-
   },
 
   loadUserPosts(loadMore) {

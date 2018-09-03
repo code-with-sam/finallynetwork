@@ -2,3 +2,6 @@
 .cache/
 node_modules/
 now.json
+dist/hckr-theme.js
+dist/hckr-theme.map
+dist/main.js
