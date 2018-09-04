@@ -1,40 +1,49 @@
+
+import $ from 'jquery'
+import showdown from 'showdown'
+import purify from 'dompurify'
+import finallycomments from 'finallycomments'
+
+const converter = new showdown.Converter({ tables: true })
+
 let page;
 
 if($('main').hasClass('profile') ) {
   let template= `
-<div class="container full-container full">
-    <div class="row full">
-    </div>
-</div>
-`;
+  <div class="container full-container full">
+      <div class="row full">
+      </div>
+  </div>`
   $('main').append(template)
   loadUserPosts(false)
-
 } else {
   loadSinglePost()
 }
 
-function loadUserPosts(loadMore) {
+async function loadUserPosts(loadMore) {
   const username = $('main').data('username')
+  const profileImage = await getSteemProfileImage(username)
   let query = { tag: username, limit: 9 }
   const listPosts = (posts) => {
     if (posts.length < 10) $('.load-more-posts').remove()
     for (var i = 0; i < posts.length; i++) {
       if(loadMore && i === 0) continue
-
+      let image;
       if( typeof JSON.parse(posts[i].json_metadata).image === 'undefined' ){
-        posts[i].body = replaceMarkdownImagesWithHtml(body)
+        posts[i].body = replaceMarkdownImagesWithHtml(posts[i].body)
         image = genImageInHTML(posts[i].body)
       } else {
         image = JSON.parse(posts[i].json_metadata).image[0]
-        // image = image.charAt(image.length - 1) === ';' ? image.substring(0,-1) : image
       }
+
 
       let templateFirst = `<div class="col-sm-12 hero" style="background-image:  url(${image})">
                     <div class="overlay">
-                        <h1 class="animated fadeIn delay-2"><a href="/@${username}/${posts[i].permlink}"> ${posts[i].title}</a></h1>
-                            <p class="hero__content animated fadeIn delay-2">{{excerpt words="24"}}</p>
-                            <a href="{{url}}"><img src="{{image}}" alt="{{name}}"class="hero__content__avatar animated fadeIn delay-2" alt="{{name}}"></a>
+                            <h1 class="animated fadeIn delay-2">
+                            <a href="/@${username}/${posts[i].permlink}"> ${posts[i].title}</a>
+                            </h1>
+                            <p class="hero__content animated fadeIn delay-2">${generateExcerpt(posts[i].body)}...</p>
+                            <img src="${profileImage}" alt="{$username}"class="hero__content__avatar animated fadeIn delay-2">
                         <p class="hero__content post-preview__meta animated fadeIn delay-2">Posted by ${username} in ${posts[i].category}</p>
                     </div>
                 </div>`
@@ -53,10 +62,6 @@ function loadUserPosts(loadMore) {
       $('main .container .row').append(template)
     }
   }
-  // <div>
-  //   <h2><a href="@${username}/${posts[i].permlink}" target="_blank"> ${posts[i].title}</a></h2>
-  //   <h3>${moment(posts[i].created).format("DD/MM/YY")  } | comments: ${posts[i].children} | votes: ${posts[i].net_votes}</h3>
-  // </div>
   if(loadMore) {
   query = { tag: username, limit: 10, start_author: username,
     start_permlink: $('tr').last().data('permlink') }
@@ -67,17 +72,31 @@ function loadUserPosts(loadMore) {
   })
 }
 
-async function digPosts(username, permlink){
-  let posts = await steem.api.getDiscussionsByBlogAsync({ tag: username, limit: 20 })
-  let postPermlinks = posts.map( post => post.permlink )
+async function digPosts(username, permlink, more, postList){
+  let currentResult;
+  if(more){
+    currentResult = await steem.api.getDiscussionsByBlogAsync({ tag: username, limit: 20, start_author: username,
+      start_permlink: postList[postList.length -1].permlink })
+  } else {
+    currentResult = await steem.api.getDiscussionsByBlogAsync({ tag: username, limit: 20 })
+  }
+  if(more) currentResult.shift()
+  postList = postList.concat(currentResult)
+  const postPermlinks = postList.map( post => post.permlink )
   let index = postPermlinks.indexOf(permlink)
-  if (index <= 19 ){
-
+  if (index > -1 && index < postList.length - 1){
+    return postList
+  } else {
+    if( more === true && currentResult < 19 ) {
+      console.log(postList)
+      return postList
+    }
+    return await digPosts(username, permlink, true, postList)
   }
 }
 
 async function findBeforeAndAfterPosts(username, permlink){
-  let posts = await steem.api.getDiscussionsByBlogAsync({ tag: username, limit: 100 })
+  let posts = await digPosts(username, permlink, false, [])
   let postPermlinks = posts.map( post => post.permlink )
   let index = postPermlinks.indexOf(permlink)
   return {
@@ -92,22 +111,20 @@ async function loadSinglePost(){
   const postData = await steem.api.getContentAsync(username, permlink)
   appendSingePostContent(postData)
   appendBeforeAfter(username, permlink)
-  // finallycomments.init()
-  // finallycomments.loadEmbed('.single-post__finally-comments')
 }
 
 async function appendBeforeAfter(username, permlink){
   const footerPostLinks = await findBeforeAndAfterPosts(username, permlink);
-  const beforePost = `<div class="col-xs-12 col-sm-5 col-sm-offset-1">
-                <a href="/@${username}/${footerPostLinks.before.permlink}" class="read-more read-more--prev">
+  const beforePost = footerPostLinks.before ? `<div class="col-xs-12 col-sm-5 col-sm-offset-1">
+                <a href="/@${footerPostLinks.before.author}/${footerPostLinks.before.permlink}" class="read-more read-more--prev">
                     <section class="post">
                         <h3 class="read-more__subtitle"><i class="fa fa-chevron-left"></i>Previous article</h3>
                         <h2 class="read-more__title">${footerPostLinks.before.title}</h2>
                     </section>
                 </a>
-            </div>`
+            </div>` : ''
   const nextPost = footerPostLinks.after ? `<div class="col-xs-12 col-sm-5 ">
-                <a href="/@${username}/${footerPostLinks.after.permlink}" class="read-more read-more--next">
+                <a href="/@${footerPostLinks.after.author}/${footerPostLinks.after.permlink}" class="read-more read-more--next">
                     <section class="post">
                         <h3 class="read-more__subtitle">Next article<i class="fa fa-chevron-right"></i></h3>
                         <h2 class="read-more__title">${footerPostLinks.after.title}</h2>
@@ -117,35 +134,32 @@ async function appendBeforeAfter(username, permlink){
 
   const template = `
   <section class="post-prev-next">
-      <div class="row">
-          ${beforePost}
-          ${nextPost}
-      <div>
+      <div class="container">
+        <div class="row">
+        ${beforePost}
+        ${nextPost}
+        <div>
+      </div>
   </section>`
   $('main').append(template)
 
 }
 
 async function appendSingePostContent(post) {
+  finallycomments.init()
   const username = $('main').data('username')
   const permlink = $('main').data('permlink')
-  var converter = new showdown.Converter();
-  // var html = purify.sanitize(converter.makeHtml(post.body))
-  var html = converter.makeHtml(post.body)
 
+  var html = purify.sanitize(converter.makeHtml(post.body))
+  let image;
   if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
-    post.body = replaceMarkdownImagesWithHtml(body)
+    post.body = replaceMarkdownImagesWithHtml(post.body)
     image = genImageInHTML(post.body)
   } else {
     image = JSON.parse(post.json_metadata).image[0]
   }
 
-  steem.api.getContent(username, permlink, function(err, result) {
-    console.log(err, result);
-    steem.api.getState(`/${result.category}/@${username}/${permlink}`, function(err, result) {
-      console.log(err, result);
-    });
-  });
+  let tags =  JSON.parse(post.json_metadata).tags.slice(0,2)
 
   let template = `
   <header class="hero-header" style="background-image: url(${image})">
@@ -154,7 +168,7 @@ async function appendSingePostContent(post) {
           </div>
       </div>
       <div class="hero-header__meta">
-        <p class="hero-header__tags animated fadeInDown">{{tags separator="&middot;"}}</p>
+        <p class="hero-header__tags animated fadeInDown">${tags.join(' &middot; ')}</p>
         <p class="hero-header__author animated fadeInUp">${username}</p>
     </div>
   </header>
@@ -165,9 +179,22 @@ async function appendSingePostContent(post) {
               ${html}
           </div>
       </div>
-  </div>
-  `
+  </div>`
+
   $('main').append(template)
+
+  $('.main-content').append(
+  `<section class="post__comments"
+  data-id="https://steemit.com/${post.category}/@${post.author}/${permlink}"
+  data-reputation="false"
+  data-values="false"
+  data-profile="false"
+  data-generated="false"
+  data-beneficiary="finallycomments"
+  data-beneficiaryWeight="25"
+  data-guestComments="false">
+  </section>`)
+  finallycomments.loadEmbed('.post__comments')
 }
 
 function genImageInHTML(markdown){
@@ -179,7 +206,7 @@ function genImageInHTML(markdown){
 
 function replaceMarkdownImagesWithHtml(body) {
   var urlRegex = /(https?:\/\/[^\s]+)/g;
-  return post.body.replace(urlRegex, (url) => {
+  return body.replace(urlRegex, (url) => {
     let last = url.slice(-3)
     if(last === 'jpg' || last === 'png' || last === 'peg' || last === 'gif')  {
       return '<img src="' + url + '">';
@@ -187,4 +214,31 @@ function replaceMarkdownImagesWithHtml(body) {
       return url
     }
   })
+}
+
+function generateExcerpt(body){
+  let placeholder = document.createElement('div');
+  placeholder.innerHTML = converter.makeHtml(body)
+  let allParagraphs = placeholder.querySelectorAll('p');
+  let firstParagraphWithText = Array.from(allParagraphs).filter(p => p.innerHTML.split(' ').length > 10)[0];
+  let excerpt = firstParagraphWithText.innerHTML.split(' ').slice(0, 25).join(' ')
+  return excerpt
+}
+
+async function getSteemProfileImage(username){
+  let profileImage = 'img/default-user.jpg';
+  const account = await steem.api.getAccountsAsync([username])
+  let profile = {}
+  try {
+    if (account[0].json_metadata === '' || typeof account[0].json_metadata === 'undefined' ) {
+      profile = { profile_image : false }
+    } else {
+      profile = JSON.parse(account[0].json_metadata).profile
+    }
+    profileImage = profile.profile_image ? 'https://steemitimages.com/128x128/' + profile.profile_image : '';
+
+  } catch(err){
+    console.log(err)
+  }
+  return profileImage
 }

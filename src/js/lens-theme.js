@@ -1,4 +1,7 @@
 
+import $ from 'jquery'
+import showdown from 'showdown'
+
 $('main').append('<section class="gallery"></section><section class="overlay"><div class="overlay__content"></div><div class="overlay__faq"></div><div class="overlay__bg"></div></section>')
 
 const USERNAME = 'sambillingham';

@@ -1772,23 +1772,23 @@ h2 {
 h1 {
   margin: 0;
   font-family: "Bitter", serif;
-  font-size: 32px;
-  font-size: 3.2rem; }
+  font-size: 28px;
+  font-size: 2.8rem; }
   @media (min-width: 992px) {
     h1 {
-      font-size: 58px;
-      font-size: 5.8rem; } }
+      font-size: 46px;
+      font-size: 4.6rem; } }
   h1 a {
     border-bottom: solid transparent 0px; }
 
 h2 {
   margin: 0;
-  font-size: 32px;
-  font-size: 3.2rem; }
+  font-size: 28px;
+  font-size: 2.8rem; }
 
 h3 {
-  font-size: 26px;
-  font-size: 2.6rem;
+  font-size: 22px;
+  font-size: 2.2rem;
   font-family: "Bitter", serif; }
 
 h4 {
@@ -1797,7 +1797,9 @@ h4 {
 b {
   font-weight: 700; }
 
-i {
+i,em {
+  font-size: 16px;
+  font-size: 1.6em;
   font-style: italic; }
 
 ul,
@@ -1824,8 +1826,8 @@ hr {
     padding: 30px 10px;
     border: none; }
     blockquote p {
-      font-size: 45px;
-      font-size: 4.5rem;
+      font-size: 30px;
+      font-size: 3rem;
       line-height: 40px;
       line-height: 4rem;
       letter-spacing: -0.01em;
@@ -2386,6 +2388,7 @@ mark {
     padding-top: 0;
     text-align: left; }
 
+
 .hero__content {
   max-width: 80%;
   margin: 0 auto;
@@ -2438,8 +2441,8 @@ mark {
   .post-preview__info .inner {
     float: left; }
     .post-preview__info .inner h2 {
-      font-size: 20px;
-      font-size: 2rem;
+      font-size: 17px;
+      font-size: 1.7rem;
       line-height: 30px;
       line-height: 3rem;
       text-shadow: 0 1px 1px #292727; }
@@ -2806,16 +2809,16 @@ a.social-icon {
       .post-prev-next .read-more--next {
         text-align: right; } }
   .post-prev-next .read-more__title {
-    font-size: 16px;
-    font-size: 1.6rem; }
+    font-size: 14px;
+    font-size: 1.4rem; }
     @media (min-width: 768px) {
       .post-prev-next .read-more__title {
-        font-size: 20px;
-        font-size: 2rem; } }
+        font-size: 15px;
+        font-size: 1.5rem; } }
     @media (min-width: 992px) {
       .post-prev-next .read-more__title {
-        font-size: 22px;
-        font-size: 2.2rem; } }
+        font-size: 17px;
+        font-size: 1.7rem; } }
   .post-prev-next .read-more__subtitle {
     font-family: "Open Sans", sans-serif;
     margin-bottom: 10px;
@@ -2826,12 +2829,12 @@ a.social-icon {
     font-size: 1rem; }
     @media (min-width: 768px) {
       .post-prev-next .read-more__subtitle {
-        font-size: 12px;
-        font-size: 1.2rem; } }
+        font-size: 11px;
+        font-size: 1.1rem; } }
     @media (min-width: 992px) {
       .post-prev-next .read-more__subtitle {
-        font-size: 14px;
-        font-size: 1.4rem; } }
+        font-size: 13px;
+        font-size: 1.3rem; } }
     .post-prev-next .read-more__subtitle .fa-chevron-right {
       display: none; }
       @media (min-width: 768px) {

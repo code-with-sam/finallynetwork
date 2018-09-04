@@ -1,4 +1,7 @@
 
+import $ from 'jquery'
+import showdown from 'showdown'
+
 import finallycomments from 'finallycomments'
 import purify from 'dompurify'
 
@@ -29,7 +32,7 @@ const hckr = {
     finallycomments.init()
     const postData = await steem.api.getContentAsync(hckr.username, hckr.permlink)
     hckr.appendSingePostContent(postData)
-    hckr.appendSinglePostComments()
+    hckr.appendSinglePostComments(postData)
   },
 
   appendSingePostContent(post) {
@@ -39,7 +42,8 @@ const hckr = {
     let template = `<a href="/@${hckr.username}/" class="back-btn">⬅</a><h2>${post.title}</h2>${html}`
     $('main').append(template)
   },
-  appendSinglePostComments() {
+
+  appendSinglePostComments(postData) {
     $('main').append(
     `<section class="post__comments"
     data-id="https://steemit.com/${postData.category}/@${postData.author}/${hckr.permlink}"
