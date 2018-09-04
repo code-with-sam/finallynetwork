@@ -1,16 +1,21 @@
 
+import steem from 'steem'
 import $ from 'jquery'
 import showdown from 'showdown'
+import inview from 'jquery-inview'
+import finallycomments from 'finallycomments'
+import purify from 'dompurify'
 
-$('main').append('<section class="gallery"></section><section class="overlay"><div class="overlay__content"></div><div class="overlay__faq"></div><div class="overlay__bg"></div></section>')
+const Masonry = require('masonry-layout')
+const USERNAME = $('main').data('username');
+$('main').append(`<header class="header"><h1 class="header__title">${USERNAME}</h1></header><section class="gallery"></section><section class="overlay"><div class="overlay__content"></div><div class="overlay__faq"></div><div class="overlay__bg"></div></section>`)
 
-const USERNAME = 'sambillingham';
-const TAG = 'photofeed'
-let query = { 'tag': USERNAME, 'limit': 20 }
+const TAG = ''
+let query = { 'tag': USERNAME, 'limit': 15 }
 let converter = new showdown.Converter({ tables: true })
 let allContent = []
 let allUsers = []
-let msnry;
+let msnry, lastTop;
 let $gallery = $('.gallery')
 
 getBlog(query, true)
@@ -19,79 +24,32 @@ $('.gallery').on('click', '.item', (e) => {
     loadPost(e.currentTarget)
 })
 
-$('.faq').on('click', (e) => {
-    e.preventDefault()
-    lastTop = $(window).scrollTop();
-    $('body').addClass( 'noscroll' ).css( { top: -lastTop } )
-    $('.overlay, .overlay__faq, .overlay__bg').addClass('overlay--active')
-})
-
-$('.nav__link').on('click', (e) => {
-  let filter = $(e.currentTarget).data('filter');
-  $('.nav__link').removeClass('nav__link--active');
-  $(e.currentTarget).addClass('nav__link--active');
-  $('.gallery').empty()
-  allContent = []
-
-  if(filter === 'trending'){
-    getTrending(query, true)
-  } else {
-    getLatest(query, true)
-  }
-})
-
 $('.overlay__bg').on('click', () => {
   $('body').removeClass('noscroll')
   $(window).scrollTop( lastTop );
-  $('.overlay, .overlay__bg, .overlay__content, .overlay__faq').removeClass('overlay--active')
+  $('.overlay, .overlay__bg, .overlay__content, .overlay__faq .overlay__photographers').removeClass('overlay--active')
 })
 
-function getTrending(query, initial, callback){
-
-  steem.api.getDiscussionsByTrending(query, (err, result) => {
-    if (err === null) {
-      displayImages(result, initial, initial ? false : callback)
-      getaccounts(result.map(post => post.author))
-    } else {
-      console.log(err);
-    }
-  });
-}
-
-function getLatest(query, initial, callback){
-
-  steem.api.getDiscussionsByCreated(query, (err, result) => {
-    if (err === null) {
-      displayImages(result, initial, initial ? false : callback)
-      getaccounts(result.map(post => post.author))
-    } else {
-      console.log(err);
-    }
-  });
-}
 
 function getBlog(query, initial, callback){
   steem.api.getDiscussionsByBlog(query, (err, result) => {
-    if (err === null) {
-      result = result.filter(post => {
-        let tags = JSON.parse(post.json_metadata).tags
-        console.log(JSON.parse(post.json_metadata))
-        if( tags.includes(TAG) || post.parent_permlink === TAG ) return post
-      })
-      displayImages(result, initial, initial ? false : callback)
-      getaccounts(result.map(post => post.author))
-    } else {
-      console.log(err);
-    }
+    if (err) console.log(err)
+    let photos = TAG !== '' ? filterByTag(result, TAG) : result
+    displayImages(photos, initial, initial ? false : callback)
   });
+}
+
+function filterByTag(posts, tag){
+  return posts.filter(post => {
+    let tags = JSON.parse(post.json_metadata).tags
+    if( tags.includes(tag) || post.parent_permlink === tag ) return post
+  })
 }
 
 function getMoreContent(){
   let lastItem = allContent[allContent.length - 1]
-  let filter = $('.nav__link--active').data('filter')
   let query = {
-      'tag':
-      'photofeed',
+      'tag': USERNAME,
       'limit': 24,
       start_author: lastItem.author,
       start_permlink: lastItem.permlink }
@@ -103,33 +61,12 @@ function getMoreContent(){
 
               $item.children('img').on('load', (e) => {
                 $(e.currentTarget).parent().removeClass('hidden')
-                $gallery.masonry( 'appended', $(e.currentTarget).parent())
+                msnry.appended($(e.currentTarget).parent())
               })
           })
           setInfiniteScrollPoint()
       }
-
-      if(filter === 'trending'){
-        getTrending(query, false, callback)
-      } else if (filter === 'latest')  {
-        getLatest(query, false, callback)
-      } else {
-        query = {
-            'tag':
-            USERNAME,
-            'limit': 24,
-            start_author: lastItem.author,
-            start_permlink: lastItem.permlink }
-        getBlog(query, false, callback)
-      }
-
-}
-
-
-function getaccounts(usernames){
-  steem.api.getAccounts(usernames, (err, result) => {
-    allUsers = allUsers.concat(result)
-  })
+      getBlog(query, false, callback)
 }
 
 function displayImages(result, initialLoad, callback){
@@ -146,7 +83,7 @@ function displayImages(result, initialLoad, callback){
           return url
         }
       })
-
+      let image
       if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
         image = genImageInHTML(post.body)
       } else {
@@ -154,6 +91,7 @@ function displayImages(result, initialLoad, callback){
       }
 
       allContent.push(post);
+
       let itemTemplate = `
         <div class="item hidden" data-url="${post.url}" data-permlink="${ post.permlink }">
           <img class="item__image " src="https://steemitimages.com/480x768/${image}" onerror="this.src='http://placehold.it/500x500'">
@@ -203,9 +141,9 @@ function checkImages(items){
 function initMasonry(images){
   images.parent().removeClass('hidden')
 
-  if( $('.gallery').data('masonry') ) $gallery.masonry('destroy')
+  if( $('.gallery').data('masonry') ) msnry('destroy')
 
-  $gallery.masonry({
+  msnry = new Masonry('.gallery', {
     itemSelector: '.item',
     columnWidth: '.item',
     gutter: 16,
@@ -251,7 +189,7 @@ function loadPost(item) {
     console.log(err)
   }
 
-  let html = converter.makeHtml(rawPost.body)
+  let html = purify.sanitize(converter.makeHtml(rawPost.body))
   html = html.replace('<p><br></p>', '')
   html = html.replace('<p></p>', '')
 
@@ -267,17 +205,11 @@ function loadPost(item) {
     <h1 class="overlay__title title">${rawPost.title}</h1>
     <hr class="overlay__border">
   `
-  let comments = `<section class="finally-comments" data-id="https://steemit.com/${post.url}" data-reputation="true" data-values="true" data-profile="true"></section>`
+  let comments = `<section class="finally-comments" data-id="https://steemit.com/${post.url}" data-reputation="true" data-values="true" data-profile="true" data-generated=false></section>`
   $('.overlay__content').empty()
   $('.overlay__content').append(header + html + comments)
   $('.overlay, .overlay__bg, .overlay__content').addClass('overlay--active')
 
-  // finallyCommentsSystem.init()
+  finallyComments.init()
   $('.overlay').scrollTop(0)
 }
-
-function uniqueArray(arrArg) {
-  return arrArg.filter(function(elem, pos,arr) {
-    return arr.indexOf(elem) == pos;
-  });
-};

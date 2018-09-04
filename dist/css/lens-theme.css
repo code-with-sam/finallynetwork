@@ -5,11 +5,16 @@
 }
 body {
   font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+  color: #222;
+  line-height: 1.35;
+  font-size: 16px;
 }
 
 a {
     word-break: break-all;
+    color: #56a3f6;
 }
+
 h2 {
   font-size: 24px;
   font-weight: 700;
@@ -45,20 +50,37 @@ h3 {
   float: right;
 }
 .header {
-  background: url(https://source.unsplash.com/26GBM9cW33g/1400x600) center center;
-  background-size: cover;
+  /*background: url(https://source.unsplash.com/26GBM9cW33g/1400x600) center center;*/
+  /*background-size: cover;*/
   padding: 100px 0;
   position: relative;
 }
 
 .header__title {
   text-align: center;
-  color: #fff;
+  color: #111;
   font-weight: 700;
   font-size: 2.5rem;
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+}
+@media(max-width: 650px){
+  .header {
+    padding: 70px 0;
+  }
+  .header__title {
+    font-size: 1.8em;
+  }
+}
+
+@media(max-width: 450px){
+  .header {
+    padding: 50px 0;
+  }
+  .header__title {
+    font-size: 1.4rem;
+  }
 }
 .header__sub-title {
   text-align: center;
@@ -255,7 +277,7 @@ main {
 
 .overlay__content img {
   max-width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .overlay__content sup {
   margin-top: 10px;
@@ -282,7 +304,7 @@ main {
 }
 
 .overlay__content p {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .overlay__content td {
@@ -330,7 +352,6 @@ main {
 }
 .overlay__tags {
   padding: 5px 0 0 0;
-  float: right;
   display: block;
 }
 .overlay__tags span {
@@ -339,7 +360,7 @@ main {
   padding: 5px 10px;
   border: solid 1px #ccc;
   border-radius: 5px;
-  margin: 0 0 5px 10px;
+  margin: 0 10px 5px 0;
   float: left;
 }
 
@@ -358,8 +379,9 @@ main {
 
 .overlay__border {
   margin: 1rem 0;
+  border:none;
+  border-bottom: solid 1px #ccc;
 }
-
 
 .overlay__faq p{
   margin-bottom: 20px;
