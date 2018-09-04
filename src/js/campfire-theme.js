@@ -1,4 +1,5 @@
 
+import steem from 'steem'
 import $ from 'jquery'
 import showdown from 'showdown'
 import purify from 'dompurify'

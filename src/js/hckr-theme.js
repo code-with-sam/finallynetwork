@@ -1,9 +1,11 @@
 
+import steem from 'steem'
 import $ from 'jquery'
 import showdown from 'showdown'
-
 import finallycomments from 'finallycomments'
 import purify from 'dompurify'
+import moment from 'moment'
+
 
 const hckr = {
   permlink: $('main').data('permlink'),
@@ -37,8 +39,7 @@ const hckr = {
 
   appendSingePostContent(post) {
     var converter = new showdown.Converter();
-    // var html = purify.sanitize(converter.makeHtml(post.body))
-    var html = converter.makeHtml(post.body)
+    var html = purify.sanitize(converter.makeHtml(post.body))
     let template = `<a href="/@${hckr.username}/" class="back-btn">⬅</a><h2>${post.title}</h2>${html}`
     $('main').append(template)
   },
@@ -98,7 +99,7 @@ const hckr = {
   },
 
   blogFeedItemTemplate(post){
-    return `<div>
+    return `<div class="blog-feed__item">
       <h2><a href="/@${hckr.username}/${post.permlink}"> ${post.title}</a></h2>
       <h3>${moment(post.created).format("DD/MM/YY")  } | comments: ${post.children} | votes: ${post.net_votes}</h3>
     </div>`

@@ -12,18 +12,6 @@ html
   body
     block content
     if theme
-      script(
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous")
-      script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js")
-      script(src="//cdn.steemjs.com/lib/latest/steem.min.js")
-      script(src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js")
-
-      if theme == 'lens'
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js")
-        script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js")
-
       script(src=`/${theme}-theme.js`)
     else
       script(src="/main.js")
