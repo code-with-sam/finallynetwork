@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "parcel watch src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js ",
-    "build": "parcel build src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js"
+    "dev": "parcel watch src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js ",
+    "build": "parcel build src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js"
   },
   "repository": {
     "type": "git",

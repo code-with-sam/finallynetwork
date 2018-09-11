@@ -5,8 +5,9 @@
   box-sizing: border-box;
 }
 body {
-  padding: 50px;
-  font: 14px 'Varela Round', Helvetica, Arial, sans-serif;
+  /*font: 14px 'Varela Round', Helvetica, Arial, sans-serif;*/
+  font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
+
   background-color: #f7fbfa;
   color: #7f8d8b;
 }
@@ -19,20 +20,344 @@ img {
   max-width: 100%;
 }
 
-p {
-  /* These are technically the same, but use both */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+.blog-1 {
+  width: 80%;
+  position: absolute;
+  top: 60px;
+  left: 50px;
+  opacity: 0.2;
+  z-index: 0;
+}
+.blog-2 {
+  width: 80%;
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  opacity: 0.2;
+  z-index: 0;
+  transform: rotate(90deg) scale(1.1);
+}
+header {
+  /*background: rgb(238,29,46);*/
+  /*background: linear-gradient(90deg, rgba(238,29,46,1) 0%, rgba(237,22,103,1) 65%, rgba(187,51,148,1) 100%);*/
+  height: 100%;
+  height: 100vh;
+  color: #333;
+  font-family: "brandon-grotesque", helvetica, Arial, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+}
 
-  -ms-word-break: break-all;
-  /* This is the dangerous one in WebKit, as it breaks things wherever */
-  word-break: break-all;
-  /* Instead use this non-standard one: */
-  word-break: break-word;
+.finally-brand {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 70px;
+  transform: rotate(-3deg);
+}
+.header__overlay {
+  height: 100vh;
+  background-color: rgba(255,255,255,0.7);
+  overflow: hidden;
+}
+.header__brand {
 
-  /* Adds a hyphen where the word breaks, if supported (No Blink) */
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+}
+.header__title {
+  font-size: 42px;
+  margin: 30px 0 60px 0;
+}
+
+.header__beta {
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.header__left {
+  float: left;
+  width: 50%;
+  padding: 250px 0 0 150px;
+}
+.header__right {
+  padding: 300px 0 0 50px;
+  width: 50%;
+  float: left;
+  position: relative;
+}
+.header__spotlight {
+  width: 350px;
+  z-index: 1;
+  position: absolute;
+  top: 230px;
+  left: 75px;
+  box-shadow: 0 0 20px 2px rgba(0,0,0,0.08);
+  border-radius: 5px;
+}
+/*.header__spotlight--a {
+  transform: translate(0, -150px);
+}*/
+.header__spotlight--b {
+transform: translate(50px, -80px);
+}
+.header__spotlight--c {
+transform: translate(85px, 100px);
+}
+
+section {
+  padding: 100px 0;
+}
+.section--alt {
+  color: #3f3f3f;
+  background: #f3f2f2;
+}
+.section--offbrand {
+  background: #e6fffc;
+}
+
+.section__split__container{
+  background: #fff;
+  padding: 0;
+}
+.section__content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section__content h2{
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.section__content p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.section__content--wide {
+  max-width: 1000px;
+}
+
+.section--center {
+  text-align: center;
+}
+
+.section__split {
+  position: relative;
+  width: 50%;
+  float: left;
+  padding: 100px 100px;
+  min-height: 500px;
+}
+.section__split h2 {
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #111;
+  z-index: 1;
+  position: relative;
+
+}
+
+.section__split p {
+  font-size: 22px;
+  line-height: 1.3;
+}
+.section__split h2:after{
+  display: block;
+    content: " ";
+    position: relative;
+    top: -32px;
+    left: -20px;
+    /*ffea4a*/
+    border-bottom: solid 11px #e6fffc;
+    width: 140px;
+    z-index: 1;
+    margin: 10px 0 20px;
+    transform: rotate(-3deg);
+    opacity: 0.7;
+    z-index: 0;
+
+}
+
+.section__split ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.section__split li {
+  background: #444;
+  padding: 4px 8px;
+  display: inline-block;
+  border-radius: 4px;
+  color: #fff;
+  margin: 0 10px 0 0;
+}
+
+.section__split--alt {
+  background: #fff;
+}
+.section__split--off {
+  background: #cccccc;
+}
+
+
+.template__example {
+  width: 33.33%;
+  float: left;
+  padding: 15px;
+  text-align: center;
+}
+
+.template__example img {
+  max-width: 100%;
+  box-shadow: 0 0 20px 2px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+
+.theme-showcase {
+  max-width: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.section--beta {
+  padding: 50px 0;
+  background-color: #e1f3fc;
+  text-align: center;
+}
+.section__content .beta--access {
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  font-size: 18px;
+}
+
+.button {
+  border: solid 1px #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+.section__content p {
+  margin-bottom: 20px;
+}
+
+
+
+.section--pro {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+}
+
+.section--pro h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.section--pro p {
+margin-bottom: 50px;
+}
+
+.section--pro ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  max-width: 350px;
+  margin: 0 auto 75px;
+  font-size: 18px;
+}
+.section--pro li {
+  margin-bottom: 10px;
+  padding: 13px 0;
+  border-bottom: dotted #d9d9d9 2px;
+}
+.section--pro li:before {
+}
+
+
+.section--pro .divider {
+  margin: 30px;
+}
+
+.section--pro .button {
+  border: solid 1px #e6e6e6;
+  background-color: #fff;
+  margin: 0;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.section--soon {
+  text-align: center;
+}
+
+.section--soon .ideas {
+  margin-bottom: 20px;
+}
+
+
+.modal {
+  display: none;
+  font-family: "brandon-grotesque", helvetica, Arial, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #333;
+  text-align: center;
+  padding: 60px 30px 0;
+  position: fixed;
+  transform: translateX(-50%);
+  top: 50px;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 20px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+.modal input,
+.modal button {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  font-size: 15px;
+
+}
+
+.modal button  {
+  background: #333;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
 }

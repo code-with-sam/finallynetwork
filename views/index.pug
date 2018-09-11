@@ -2,13 +2,131 @@ extends layout
 
 block content
   header
-  main.landing
-    h1 Finally Network
-    h2 Turn your STEEM based blog into a website
-    h2 Request Beta Access
-    h2 Use templates
+    .header__overlay
+      img(src="/img/finally-brand.png").finally-brand
+      .header__left
+        h1.header__title Turn your STEEM blog <br> into a website
+        span.header__beta Unlock Beta Access
+      .header__right
+        <svg class="blog-1" id="Layer_1" x="0px" y="0px" viewBox="0 0 500 500">
+        <path fill="#48FFC6" class="st0" d="M285.3,94C212.2,72.1,164.4,23.9,111,66.9C68.8,100.9,4.7,157.2,68.6 250c36.9,53.5-47.8,189.2,72.9,214.2c124.3,25.7,129.9-79.9,194.8-64.7c157.9,36.9,141.6-263.3,114.9-296.4C411.7,53.8,341.3,110.9,285.3,94z"/>
+        </svg>
 
-    h2 Coming soon
-    h3 More templates
-    h3 customisation
-    h3 Add extra pages
+        <svg class="blog-2" id="Layer_1" x="0px" y="0px" viewBox="0 0 500 500">
+        <path fill="#ff4a7a" class="st0" d="M285.3,94C212.2,72.1,164.4,23.9,111,66.9C68.8,100.9,4.7,157.2,68.6 250c36.9,53.5-47.8,189.2,72.9,214.2c124.3,25.7,129.9-79.9,194.8-64.7c157.9,36.9,141.6-263.3,114.9-296.4C411.7,53.8,341.3,110.9,285.3,94z"/>
+        </svg>
+
+        img(src="/img/browser-campfire.png").header__spotlight.header__spotlight--c
+        img(src="/img/browser-hckr.png").header__spotlight.header__spotlight--b
+        img(src="/img/browser-lens.png").header__spotlight.header__spotlight--a
+
+
+  main.landing
+    section.section--alt
+      .section__content
+        h2 What is Finally?
+        p Finally is a network of content that is powered by the STEEM blockchain.
+
+        p Create and publish content using any STEEM platform. Within the Finally Network you can create a website with one of the avalible themes. Find a style that best suits your content.  Upgrade to Pro for your own subdomain (example.finally.network) or custom domain (example.com).
+
+
+    section.section--offbrand
+      .section__content.section__content--wide.cf
+          div.template__example
+            img(src="/img/browser-lens.png")
+            h3 Lens
+          div.template__example
+            img(src="/img/browser-hckr.png")
+            h3 HCKR
+          div.template__example
+            img(src="/img/browser-campfire.png")
+            h3 Campfire
+
+    section.cf.section__split__container
+      .section__split.section__split--alt
+        h2 Lens
+        p A place for your photography to shine. Showcase your photos on the steem blockchain. Works well for accounts with many posts where the photo is the main content.
+
+        ul
+          li Photography
+
+
+      .section__split.section__split--off
+        img(src="/img/browser-lens.png").theme-showcase.theme-showcase--1
+
+    section.cf.section__split__container
+      .section__split.section__split--off
+        img(src="/img/browser-hckr.png").theme-showcase.theme-showcase--1
+
+
+      .section__split.section__split--alt
+        h2 HCKR
+        p Barebones design approach. Works best for technical blogs with code excerpts.
+
+        ul
+          li Tech
+          li code
+
+
+    section.cf.section__split__container
+      .section__split.section__split--alt
+        h2 Campfire
+        p Showcase your adventures in a bold captivating format. A minimal design with a strong focus on written content.
+
+        p Works best with medium - long form content and high quality images.
+
+        ul
+          li Travel
+          li Food
+          li Stories
+
+
+      .section__split.section__split--off
+        img(src="/img/browser-campfire.png").theme-showcase.theme-showcase--1
+
+    section.section--pro
+      .section__content
+        h2 Ready to Upgrade?
+        p Help support finally and get access to extra features
+
+        ul
+          li Custom domain support
+          li Support from @finally.network vote
+          li No branding (remove "Built with Finally" from footer)
+          li Earn Beneficiary rewards from comments using @finallycomments
+          li More features coming soon
+
+        p
+        span.button Delegate 300SP
+        span.divider  or
+        span.button 5SBD / month
+
+    section.section--soon
+      .section__content
+        h2 Coming soon / Roadmap
+        div.ideas
+          h3 More Templates
+          p Next - D.tube ready theme
+        div.ideas
+          h3 Customisation Options
+          p Pro accounts will be able to edit default settings
+
+        div.ideas
+          h3 Extra Pages
+          p Add single pages to themes e.g about/contact
+
+
+    section
+      .section__content
+        h2 Feedback
+        p Contact on Discord ()
+        p Comment on STEEM Post
+
+    .modal.overlay
+      h2 Unlock Beta Access
+      input(type="text" placeholder="username").username
+
+      button.submit Continue
+
+    footer
+      created by
