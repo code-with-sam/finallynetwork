@@ -9,3 +9,5 @@ dist/lens-theme.map
 dist/campfire-theme.js
 dist/campfire-theme.map
 dist/main.js
+dist/beta.js
+dist/beta.map

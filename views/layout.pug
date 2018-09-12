@@ -6,6 +6,7 @@ html
       if theme == 'campfire'
         link(rel='stylesheet', href=`/css/bootstrap.min.css`)
       link(rel='stylesheet', href=`/css/${theme}-theme.css`)
+      link(rel='stylesheet', href=`/css/beta.css`)
     else
       link(rel="stylesheet" href="https://use.typekit.net/iqb0qug.css")
       link(rel='stylesheet', href=`/css/main.css`)
@@ -14,5 +15,6 @@ html
     block content
     if theme
       script(src=`/${theme}-theme.js`)
+      script(src="/beta.js")
     else
       script(src="/main.js")

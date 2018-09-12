@@ -30,6 +30,7 @@ async function loadUserPosts(loadMore) {
     for (var i = 0; i < posts.length; i++) {
       if(loadMore && i === 0) continue
       let image;
+
       if( typeof JSON.parse(posts[i].json_metadata).image === 'undefined' ){
         posts[i].body = replaceMarkdownImagesWithHtml(posts[i].body)
         image = genImageInHTML(posts[i].body)
@@ -153,7 +154,12 @@ async function appendSingePostContent(post) {
 
   var html = purify.sanitize(converter.makeHtml(post.body))
   let image;
-  if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
+
+  console.log( 'ehhehe')
+  console.log('post data',  post )
+
+
+  if( typeof JSON.parse(post.json_metadata) === 'undefined' ){
     post.body = replaceMarkdownImagesWithHtml(post.body)
     image = genImageInHTML(post.body)
   } else {

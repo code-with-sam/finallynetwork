@@ -16,7 +16,7 @@ const hckr = {
     $('main').addClass('hckr-theme')
     hckr.uiActions()
     hckr.isBlogFeed() ? hckr.initBlogFeed(false) : hckr.loadSinglePost()
-
+    console.log(this.permlink, this.username)
   },
 
   uiActions() {
