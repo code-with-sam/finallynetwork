@@ -12,8 +12,7 @@ const randomTheme = () => {
 const renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
-      if (!result) res.render('profile', {username, theme : randomTheme() } );
-      const THEME = result.beta ? result.theme : randomTheme()
+      const THEME = !result ? randomTheme() : result.theme
       res.render('profile', {username, theme : THEME } );
     })
 }
@@ -21,13 +20,11 @@ const renderProfile = (username, res) => {
 const renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
-      if (!result) res.render('single', {username, permlink, theme : randomTheme() } );
-      const THEME = result.beta ? result.theme : randomTheme()
+      const THEME = !result ? randomTheme() : result.theme
       res.render('single', {username, permlink, theme : THEME } );
     })
 }
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   const domain = req.headers.host;
   const subDomain = domain.split('.');
@@ -40,8 +37,6 @@ router.get('/', function(req, res, next) {
   }
 });
 
-
-
 router.get('/@:username', (req, res) => {
   const username = req.params.username
   let domain = req.headers.host;
@@ -53,7 +48,6 @@ router.get('/@:username', (req, res) => {
     renderProfile(username, res)
   }
 });
-
 
 router.get('/:permlink', (req, res) => {
   const domain = req.headers.host;
@@ -69,17 +63,11 @@ router.get('/:permlink', (req, res) => {
   }
 });
 
-
-
-
 router.get('/@:username/:permlink', (req, res) => {
   const username = req.params.username
   const permlink = req.params.permlink
   renderSingle(username, permlink, res)
 });
-
-
-
 
 router.post('/api/:username/theme', (req, res) => {
   const username = req.params.username
