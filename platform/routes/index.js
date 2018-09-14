@@ -9,11 +9,21 @@ const randomTheme = () => {
   return themes[Math.floor(Math.random() * 3)]
 }
 
+const getThemeFromDbResult = (result) => {
+  console.log(result)
+  let THEME = randomTheme()
+  if(result) {
+    THEME = result.theme || randomTheme()
+    if(!result.beta) result.remove()
+  }
+  return THEME
+}
+
 const renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
-      const THEME = !result ? randomTheme() : result.theme
-      res.render('profile', {username, theme : THEME } );
+      let THEME = getThemeFromDbResult(result)
+      res.render('profile', {username, theme : THEME } )
     })
 }
 
