@@ -1,0 +1,16 @@
+{
+  "name": "beta-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "beta.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "mongoose": "^5.2.14",
+    "steem": "^0.7.1"
+  }
+}
