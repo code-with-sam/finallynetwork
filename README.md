@@ -2,11 +2,15 @@
 
 Finally website platform. Quickly build websites using a Steem blockchain account.
 
-please see the [Introduction post to learn more about the platform]()
+Please see the [Introduction post to learn more about this platform and project]()
+
+
+![fin.png](https://ipfs.busy.org/ipfs/Qmd5WhSEW87WhUx5EJGtGfc2vGnmAtNfxfoCaFdnYNiHPq)
+
 
 # Setup & Install
 
-### platform
+### Platform
 
 ```
 git clone
@@ -21,8 +25,11 @@ FNET_DATABASE_PASSWORD=password
 ```
 
 `npm install` - to download dependencies
+
 `npm start` - run the project on default port 3000
+
 `npm run dev` - to watch for changes in src/ folder
+
 `npm run build` - builds for production
 
 navigate to localhost:3000 in your browser
@@ -45,6 +52,7 @@ FNET_DATABASE_USER=user
 FNET_DATABASE_PASSWORD=password
 ```
 `npm install` - to download dependencies
+
 `node beta.js`
 
 # Contributions
