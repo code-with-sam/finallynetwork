@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     user: String,
     theme: String,
-    beta: Boolean,
-    test: Boolean
+    beta: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('User', userSchema);
