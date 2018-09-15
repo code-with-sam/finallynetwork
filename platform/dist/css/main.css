@@ -399,6 +399,18 @@ margin-bottom: 50px;
 
 .modal {
   display: none;
+}
+.modal__bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255,255,255,0.5);
+  z-index: 1;
+
+}
+.modal__inner {
   font-family: "brandon-grotesque", helvetica, Arial, sans-serif;
   font-weight: 500;
   text-transform: uppercase;
@@ -406,14 +418,14 @@ margin-bottom: 50px;
   text-align: center;
   padding: 60px 30px 0;
   position: fixed;
-  transform: translateX(-50%);
-  top: 50px;
+  transform: translate(-50%, -50%);
+  top: 50%;
   left: 50%;
   width: 90%;
   max-width: 400px;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px 20px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
   z-index: 1;
 }
 .modal input,

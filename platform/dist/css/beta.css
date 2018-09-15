@@ -65,4 +65,14 @@
   max-width: 50%;
   margin: 0 auto 20px;
   display: block;
+  font-size: 16px;
+
+}
+
+a.beta-unlock__submit:hover,
+a.beta-unlock__submit:active,
+a.beta-unlock__submit:visited,
+a.beta-unlock__submit:focus {
+  color: #222;
+  font-size: 16px;
 }

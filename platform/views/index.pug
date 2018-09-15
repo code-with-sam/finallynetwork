@@ -6,7 +6,7 @@ block content
       img(src="/img/finally-brand.png").finally-brand
       .header__left
         h1.header__title Turn your STEEM blog <br> into a website
-        span.header__beta Unlock Beta Access
+        span.header__beta Beta Access
       .header__right
         <svg class="blog-1" id="Layer_1" x="0px" y="0px" viewBox="0 0 500 500">
         <path fill="#48FFC6" class="st0" d="M285.3,94C212.2,72.1,164.4,23.9,111,66.9C68.8,100.9,4.7,157.2,68.6 250c36.9,53.5-47.8,189.2,72.9,214.2c124.3,25.7,129.9-79.9,194.8-64.7c157.9,36.9,141.6-263.3,114.9-296.4C411.7,53.8,341.3,110.9,285.3,94z"/>
@@ -90,7 +90,7 @@ block content
 
         p Finally is aiming to support content creators and create a system to make Steem blockchain content shine. If you are interested in seeing this project come to life and can spare Steem delegation please delegate to @finallynetwork. SP on FinallyNetwork will be used to support users of the platform who create meaningful content. Any supporters who delegate over 300SP will automatically get Pro features when available.
 
-        a.button(href="https://steemconnect.com/sign/delegateVestingShares?delegator=&delegatee=finallynetwork&vesting_shares=500%20SP" target="_blank") Delegate To FinallyNetwork 
+        a.button(href="https://steemconnect.com/sign/delegateVestingShares?delegator=&delegatee=finallynetwork&vesting_shares=500%20SP" target="_blank") Delegate To FinallyNetwork
 
     section.section--soon
       .section__content
@@ -106,9 +106,10 @@ block content
           h3 Extra Pages
           p Add single pages to themes e.g about/contact
 
+    .modal
+      .modal__bg
+      .modal__inner
+        h2 Beta Access
+        input(type="text" placeholder="username").username
 
-    .modal.overlay
-      h2 Unlock Beta Access
-      input(type="text" placeholder="username").username
-
-      button.submit Continue
+        button.submit Continue
