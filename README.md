@@ -4,6 +4,10 @@ Finally website platform. Quickly build websites using a Steem blockchain accoun
 
 Please see the [Introduction post to learn more about this platform and project]()
 
+
+![fin.png](https://ipfs.busy.org/ipfs/Qmd5WhSEW87WhUx5EJGtGfc2vGnmAtNfxfoCaFdnYNiHPq)
+
+
 # Setup & Install
 
 ### Platform
