@@ -1,0 +1,30 @@
+extends layout
+
+block content
+
+  main.dashboard(data-username=`${username}`)
+    section.dashboard__title
+      h2.dashboard__title Dashboard
+    section.dashboard__block
+      table.dashboard__table
+        tr
+          th Website
+          th Current Theme
+          th Update
+        tr
+          td: a(href="/@#{username}") /@#{username}
+          td Campfire
+          td
+            select
+              option(value="lens") Lens
+              option(value="hckr") HCKR
+              option(value="campfire") Campfire
+            button save
+
+    section.dashboard__block
+      p Thanks for supporting Finally with a Pro account
+      p you have X days remaining
+      p you currently have X delegated
+
+    .pro-no
+      p Help support finally with a pro accont

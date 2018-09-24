@@ -67,13 +67,16 @@ header {
   margin: 30px 0 60px 0;
 }
 
-.header__beta {
-  padding: 20px;
+.header__beta,
+.header__login {
+  padding: 12px 20px;
   border-radius: 5px;
   cursor: pointer;
   background: #333;
   color: #fff;
   letter-spacing: 1px;
+  margin-right: 15px;
+  text-decoration: none;
 }
 
 .header__left {
@@ -449,4 +452,29 @@ margin-bottom: 50px;
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
+}
+
+
+
+.dashboard {
+  padding: 75px 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dashboard__title {
+  padding: 0 0;
+  margin-bottom: 30px;
+}
+.dashboard__block {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  box-shadow: 0 0 25px 1px rgba(0,0,0,0.06);
+}
+
+.dashboard__table {
+  width: 100%;
+  text-align: center;
 }

@@ -1,7 +1,7 @@
- var express = require('express');
-var router = express.Router();
-// testing
-let User = require('../models/user')
+const express = require('express');
+const router = express.Router();
+const util = require('../modules/util');
+const User = require('../models/user')
 
 
 const randomTheme = () => {
@@ -45,6 +45,13 @@ router.get('/', function(req, res, next) {
   } else {
       res.render('index');
   }
+});
+
+router.get('/dashboard', util.isAuthenticated, (req, res) => {
+  console.log('testing dashboard')
+  const username = req.session.steemconnect.name
+
+  res.render('dashboard', { username })
 });
 
 router.get('/@:username', (req, res) => {
