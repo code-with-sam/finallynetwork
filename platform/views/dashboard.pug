@@ -1,30 +1,26 @@
 extends layout
 
 block content
-
-  main.dashboard(data-username=`${username}`)
-    section.dashboard__title
-      h2.dashboard__title Dashboard
+  header.dashboard__header.cf
+      h2.dashboard__title
+        img.dashboard__title__logo(src="/img/f-logo.png" alt="Finally Network Logo" title="Finally Network" )
+        span.dashboard__title__text Dashboard
+  main.dashboard(data-username=`${username}` data-theme=`${selectedTheme}` )
     section.dashboard__block
       table.dashboard__table
         tr
           th Website
-          th Current Theme
-          th Update
+          th Update Theme
         tr
-          td: a(href="/@#{username}") /@#{username}
-          td Campfire
+          td: a(href=`/@${username}`) /@#{username}
           td
-            select
+            select.dashboard__theme-select
               option(value="lens") Lens
               option(value="hckr") HCKR
               option(value="campfire") Campfire
-            button save
+            span.dashboard__save save
 
-    section.dashboard__block
-      p Thanks for supporting Finally with a Pro account
-      p you have X days remaining
-      p you currently have X delegated
-
-    .pro-no
-      p Help support finally with a pro accont
+    if pro == true
+      section.dashboard__block
+        p Thank you for testing the Finally Beta Platform
+        p If you need help please contact Sam via discord [sambillingham#7927]

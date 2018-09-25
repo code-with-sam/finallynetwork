@@ -19,11 +19,16 @@ const getThemeFromDbResult = (result) => {
   return THEME
 }
 
+const accountStatus = (result) => {
+  if(!result) return false
+  return result.beta || false
+}
+
 const renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
       let THEME = getThemeFromDbResult(result)
-      res.render('profile', {username, theme : THEME } )
+      res.render('profile', {username, theme : THEME, pro: accountStatus(result) } )
     })
 }
 
@@ -31,7 +36,7 @@ const renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
       const THEME = !result ? randomTheme() : result.theme
-      res.render('single', {username, permlink, theme : THEME } );
+      res.render('single', {username, permlink, theme : THEME, pro: accountStatus(result) } );
     })
 }
 
@@ -48,10 +53,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', util.isAuthenticated, (req, res) => {
-  console.log('testing dashboard')
   const username = req.session.steemconnect.name
-
-  res.render('dashboard', { username })
+  User.findOne({user : username}, (err, result) => {
+      if (err) throw (err);
+      const THEME = !result ? false : result.theme
+      res.render('dashboard', {username, selectedTheme : THEME, pro: accountStatus(result) } );
+    })
 });
 
 router.get('/@:username', (req, res) => {
