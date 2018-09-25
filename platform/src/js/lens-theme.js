@@ -10,7 +10,7 @@ const Masonry = require('masonry-layout')
 const USERNAME = $('main').data('username');
 $('main').append(`<header class="header"><h1 class="header__title">${USERNAME}</h1></header><section class="gallery"></section><section class="overlay"><div class="overlay__content"></div><div class="overlay__faq"></div><div class="overlay__bg"></div></section>`)
 
-const TAG = ''
+const TAG = $('main').data('tag');
 let query = { 'tag': USERNAME, 'limit': 15 }
 let converter = new showdown.Converter({ tables: true })
 let allContent = []

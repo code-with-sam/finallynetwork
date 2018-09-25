@@ -2,13 +2,14 @@ import $ from 'jquery'
 
 const betaPluign = {
   username : $('main').data('username'),
+  pro : $('main').data('pro'),
 
   init() {
-    this.renderTemplate()
+    if (!this.pro) this.renderBetaTemplate()
     this.uiActions()
   },
 
-  createTemplate() {
+  createBetaTemplate() {
     return `<section class="beta-modal">
       <h2 class="beta-modal__title">Theme : <select class="beta-modal__select">
       <option value="lens">Lens</option>
@@ -34,8 +35,8 @@ const betaPluign = {
     </section>`
   },
 
-  renderTemplate() {
-    const template = this.createTemplate()
+  renderBetaTemplate() {
+    const template = this.createBetaTemplate()
     $('body').append(template)
   },
 

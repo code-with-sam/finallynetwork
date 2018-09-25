@@ -24,7 +24,9 @@ if($('main').hasClass('profile') ) {
 async function loadUserPosts(loadMore) {
   const username = $('main').data('username')
   const profileImage = await getSteemProfileImage(username)
-  let query = { tag: username, limit: 9 }
+  const TAG = $('main').data('tag');
+  
+  let query = { tag: username, limit: 15 }
   const listPosts = (posts) => {
     if (posts.length < 10) $('.load-more-posts').remove()
     for (var i = 0; i < posts.length; i++) {
@@ -69,11 +71,20 @@ async function loadUserPosts(loadMore) {
     start_permlink: $('tr').last().data('permlink') }
   }
   steem.api.getDiscussionsByBlog(query, (err, result) => {
-    console.log(result)
-    if (err === null) listPosts(result)
+    let posts = TAG !== '' ? filterByTag(result, TAG) : result
+    if (err === null) listPosts(posts)
   })
 }
 
+function filterByTag(posts, tag){
+  return posts.filter(post => {
+    let tags = JSON.parse(post.json_metadata).tags
+    if( tags.includes(tag) || post.parent_permlink === tag ) return post
+  })
+}
+
+// Create an array of all posts
+// used for prev/next posts
 async function digPosts(username, permlink, more, postList){
   let currentResult;
   if(more){

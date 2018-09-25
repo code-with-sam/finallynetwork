@@ -1,7 +1,7 @@
- var express = require('express');
-var router = express.Router();
-// testing
-let User = require('../models/user')
+const express = require('express');
+const router = express.Router();
+const util = require('../modules/util');
+const User = require('../models/user')
 
 
 const randomTheme = () => {
@@ -19,11 +19,16 @@ const getThemeFromDbResult = (result) => {
   return THEME
 }
 
+const accountStatus = (result) => {
+  if(!result) return false
+  return result.beta || false
+}
+
 const renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
-      let THEME = getThemeFromDbResult(result)
-      res.render('profile', {username, theme : THEME } )
+      const THEME = getThemeFromDbResult(result)
+      res.render('profile', {username, theme : THEME, tag: result.tag, pro: accountStatus(result) } )
     })
 }
 
@@ -31,7 +36,7 @@ const renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
       const THEME = !result ? randomTheme() : result.theme
-      res.render('single', {username, permlink, theme : THEME } );
+      res.render('single', {username, permlink, theme : THEME, pro: accountStatus(result) } );
     })
 }
 
@@ -45,6 +50,15 @@ router.get('/', function(req, res, next) {
   } else {
       res.render('index');
   }
+});
+
+router.get('/dashboard', util.isAuthenticated, (req, res) => {
+  const username = req.session.steemconnect.name
+  User.findOne({user : username}, (err, result) => {
+      if (err) throw (err);
+      const THEME = !result ? false : result.theme
+      res.render('dashboard', {username, selectedTheme : THEME, tag: result.tag, pro: accountStatus(result) } );
+    })
 });
 
 router.get('/@:username', (req, res) => {
@@ -82,7 +96,24 @@ router.get('/@:username/:permlink', (req, res) => {
 router.post('/api/:username/theme', (req, res) => {
   const username = req.params.username
   const theme = req.body.theme
-    User.findOneAndUpdate({user: username}, {theme: theme }, {upsert: true}, (result) => res.json({result}));
+  const tag = req.body.tag
+  User.findOneAndUpdate({user: username}, {theme: theme }, {upsert: true}, (result) => res.json({result}));
 });
+
+router.post('/api/:username/update', util.isAuthorized, (req, res) => {
+  const username = req.params.username
+  const authorizedUser = req.session.steemconnect.name
+  const theme = req.body.theme
+  const tag = req.body.tag
+  if(username === authorizedUser){
+    User.findOneAndUpdate({user: username}, {theme: theme, tag: tag }, {upsert: true}, (result) => res.json({result}));
+  } else {
+    res.json({
+      status: 'fail',
+      msg: 'Please sign in.'
+    })
+  }
+});
+
 
 module.exports = router;

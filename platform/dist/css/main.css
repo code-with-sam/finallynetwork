@@ -20,6 +20,12 @@ img {
   max-width: 100%;
 }
 
+.cf:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .blog-1 {
   width: 80%;
   position: absolute;
@@ -67,13 +73,16 @@ header {
   margin: 30px 0 60px 0;
 }
 
-.header__beta {
-  padding: 20px;
+.header__beta,
+.header__login {
+  padding: 12px 20px;
   border-radius: 5px;
   cursor: pointer;
   background: #333;
   color: #fff;
   letter-spacing: 1px;
+  margin-right: 15px;
+  text-decoration: none;
 }
 
 .header__left {
@@ -449,4 +458,77 @@ margin-bottom: 50px;
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
+}
+
+
+
+.dashboard {
+  padding: 75px 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dashboard__header {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  height: auto;
+  border-bottom: solid 1px #ececec;
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.03);
+
+}
+.dashboard__title {
+  padding: 10px 15px;
+  font-size: 14px;
+  border-right: solid 1px #ececec;
+  display: inline-block;
+  float: left;
+}
+.dashboard__title__logo {
+  width: 30px;
+  float: left;
+  margin-right: 5px;
+}
+.dashboard__title__text{
+  float: left;
+  line-height: 30px;
+}
+
+.dashboard__block {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 1px;
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.03);
+  border: solid 1px #ececec;
+
+}
+
+.dashboard__table {
+  width: 100%;
+  text-align: center;
+}
+.dashboard__table th{
+  padding-bottom: 5px;
+}
+.dashboard__save {
+  margin-left: 5px;
+  padding: 0px 10px;
+  border: solid 1px #7f8d8b;
+  color: #7f8d8b;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+.dashboard__tag-select {
+  margin-left: 5px;
+  padding: 3px 10px;
+  border: solid 1px #7f8d8b;
+  color: #111;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+.dashboard__save:hover {
+  border: solid 1px #333;
+  color: #333;
 }
