@@ -520,6 +520,14 @@ margin-bottom: 50px;
   cursor: pointer;
   line-height: 1;
 }
+.dashboard__tag-select {
+  margin-left: 5px;
+  padding: 3px 10px;
+  border: solid 1px #7f8d8b;
+  color: #111;
+  border-radius: 4px;
+  line-height: 1.5;
+}
 .dashboard__save:hover {
   border: solid 1px #333;
   color: #333;

@@ -10,6 +10,7 @@ import moment from 'moment'
 const hckr = {
   permlink: $('main').data('permlink'),
   username: $('main').data('username'),
+  tag: $('main').data('tag'),
   lastPermlink: '',
 
   init(){
@@ -65,14 +66,21 @@ const hckr = {
   },
 
   loadUserPosts(loadMore) {
-    let query = { tag: hckr.username, limit: 10 }
+    let query = { tag: hckr.username, limit: 15 }
     if(loadMore) {
     query = { tag: hckr.username, limit: 10, start_author: hckr.username,
       start_permlink: hckr.lastPermlink }
     }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
-      console.log(result)
-      if (err === null) hckr.loopUserPosts(loadMore, result)
+      let posts = hckr.tag !== '' ? hckr.filterByTag(result, hckr.tag) : result
+      if (err === null) hckr.loopUserPosts(loadMore, posts)
+    })
+  },
+
+  filterByTag(posts, tag){
+    return posts.filter(post => {
+      let tags = JSON.parse(post.json_metadata).tags
+      if( tags.includes(tag) || post.parent_permlink === tag ) return post
     })
   },
 
