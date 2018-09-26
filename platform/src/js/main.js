@@ -2,6 +2,7 @@ import $ from 'jquery'
 import steem from 'steem'
 import showdown from 'showdown'
 import purify from 'dompurify'
+import finallycomments from 'finallycomments'
 
 const app = {
   init() {
@@ -74,16 +75,29 @@ const app = {
     const post = posts.filter(post => post.permlink === permlink)[0]
     const template = this.singlePostTemplate(post)
     $('main').append(template)
+    this.appendSinglePostComments(post)
   },
 
   singlePostTemplate(post){
     var converter = new showdown.Converter();
     var html = purify.sanitize(converter.makeHtml(post.body))
-    return `<h1>${post.title}</h1>${html}
+    return `<h1>${post.title}</h1>${html}`
+  },
 
-
-    `
-  }
+  appendSinglePostComments(postData) {
+    $('main').append(
+    `<section class="post__comments"
+    data-id="https://steemit.com/${postData.category}/@${postData.author}/${postData.permlink}"
+    data-reputation="false"
+    data-values="false"
+    data-profile="false"
+    data-generated="false"
+    data-beneficiary="finallycomments"
+    data-beneficiaryWeight="25"
+    data-guestComments="false">
+    </section>`)
+      finallycomments.loadEmbed('.post__comments')
+  },
 
 }
 
