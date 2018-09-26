@@ -40,17 +40,18 @@ const app = {
 
   loadNewsLinks(){
     const query = { tag: 'finallynetwork', limit: 5 }
-    const listPosts = (posts) => {
-      for (var i = 0; i < posts.length; i++) {
-        let template = `<li><a href="/blog/${posts[i].url}"> ${posts[i].title}</a></li>`
-        $('.landing__news ul').append(template)
-      }
-    }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
-      console.log('ho')
-      if (err === null) listPosts(result)
+      if (err === null) this.loopNewsResults(result)
     })
+  },
 
+  loopNewsResults(posts){
+      posts.forEach( post => this.displayNewsLink(post) )
+  },
+
+  displayNewsLink(post) {
+    const template = `<li><a href="/blog/${post.permlink}"> ${post.title}</a></li>`
+    $('.landing__news ul').append(template)
   }
 
 }
