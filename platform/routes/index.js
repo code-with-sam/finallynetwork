@@ -61,6 +61,10 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
     })
 });
 
+router.get('/blog/:permlink', (req, res) => {
+  res.render('blog-post', { title: 'Finally Blog', permlink : req.params.permlink} );
+});
+
 router.get('/@:username', (req, res) => {
   const username = req.params.username
   let domain = req.headers.host;

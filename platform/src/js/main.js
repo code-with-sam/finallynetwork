@@ -1,11 +1,19 @@
 import $ from 'jquery'
 import steem from 'steem'
+import showdown from 'showdown'
+import purify from 'dompurify'
 
 const app = {
   init() {
     this.UiActions()
-    this.showSelectedThemeInDropdown()
-    this.loadNewsLinks()
+    this.pageSpecificInit()
+  },
+
+  pageSpecificInit(){
+    const page = $('main').attr('class').split(/\s+/)
+    if( page.includes('landing') ) this.loadNewsLinks()
+    if( page.includes('blog') ) this.loadRecentPosts()
+    if( page.includes('dashboard') ) this.showSelectedThemeInDropdown()
   },
 
   UiActions() {
@@ -50,8 +58,31 @@ const app = {
   },
 
   displayNewsLink(post) {
-    const template = `<li><a href="/blog/${post.permlink}"> ${post.title}</a></li>`
+    const template = `<li><a class="landing__news__li" href="/blog/${post.permlink}"> ${post.title}</a></li>`
     $('.landing__news ul').append(template)
+  },
+
+  loadRecentPosts(){
+    const query = { tag: 'finallynetwork', limit: 5 }
+    steem.api.getDiscussionsByBlog(query, (err, result) => {
+      if (err === null) this.displaySinglePost(result)
+    })
+  },
+
+  displaySinglePost(posts){
+    const permlink = $('main').data('permlink')
+    const post = posts.filter(post => post.permlink === permlink)[0]
+    const template = this.singlePostTemplate(post)
+    $('main').append(template)
+  },
+
+  singlePostTemplate(post){
+    var converter = new showdown.Converter();
+    var html = purify.sanitize(converter.makeHtml(post.body))
+    return `<h1>${post.title}</h1>${html}
+
+
+    `
   }
 
 }
