@@ -2,43 +2,9 @@ const express = require('express');
 const router = express.Router();
 const util = require('../modules/util');
 const User = require('../models/user')
-
-
-const randomTheme = () => {
-  const themes = ['hckr', 'lens', 'campfire']
-  return themes[Math.floor(Math.random() * 3)]
-}
-
-const getThemeFromDbResult = (result) => {
-  console.log(result)
-  let THEME = randomTheme()
-  if(result) {
-    THEME = result.theme || randomTheme()
-    if(!result.beta) result.remove()
-  }
-  return THEME
-}
-
-const accountStatus = (result) => {
-  if(!result) return false
-  return result.beta || false
-}
-
-const renderProfile = (username, res) => {
-  User.findOne({user : username}, (err, result) => {
-      if (err) throw (err);
-      const THEME = getThemeFromDbResult(result)
-      res.render('profile', {username, theme : THEME, tag: result.tag, pro: accountStatus(result) } )
-    })
-}
-
-const renderSingle = (username, permlink, res) => {
-  User.findOne({user : username}, (err, result) => {
-      if (err) throw (err);
-      const THEME = !result ? randomTheme() : result.theme
-      res.render('single', {username, permlink, theme : THEME, pro: accountStatus(result) } );
-    })
-}
+const themeController = require('../controllers/theme')
+const templateController = require('../controllers/template')
+const accountController = require('../controllers/account')
 
 router.get('/', function(req, res, next) {
   const domain = req.headers.host;
@@ -46,7 +12,7 @@ router.get('/', function(req, res, next) {
 
   if(subDomain.length > 2) {
       username = subDomain[0]
-      renderProfile(username, res)
+      templateController.renderProfile(username, res)
   } else {
       res.render('index');
   }
@@ -57,7 +23,7 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
       const THEME = !result ? false : result.theme
-      res.render('dashboard', {username, selectedTheme : THEME, tag: result.tag, pro: accountStatus(result) } );
+      res.render('dashboard', {username, selectedTheme : THEME, tag: result.tag, pro: accountController.accountStatus(result) } );
     })
 });
 
@@ -73,7 +39,7 @@ router.get('/@:username', (req, res) => {
   if(subDomain.length > 2) {
       res.redirect('/');
   } else {
-    renderProfile(username, res)
+    templateController.renderProfile(username, res)
   }
 });
 
@@ -84,7 +50,7 @@ router.get('/:permlink', (req, res) => {
   const permlink = req.params.permlink
 
   if(subDomain.length > 2) {
-    renderSingle(username, permlink, res)
+    templateController.renderSingle(username, permlink, res)
   } else {
     let err = new Error('Not Found');
     err.status = 404;
@@ -94,7 +60,7 @@ router.get('/:permlink', (req, res) => {
 router.get('/@:username/:permlink', (req, res) => {
   const username = req.params.username
   const permlink = req.params.permlink
-  renderSingle(username, permlink, res)
+  templateController.renderSingle(username, permlink, res)
 });
 
 router.post('/api/:username/theme', (req, res) => {
