@@ -14,3 +14,12 @@ module.exports.isAuthorized = (req, res, next) => {
     msg: 'Please sign in.'
   })
 }
+
+module.exports.subdomainCheck = (req, res, next) => {
+  const domain = req.headers.host;
+  const subDomain = domain.split('.');
+  const hasSubDomain = subDomain.length > 2
+  res.locals.subDomain = subDomain[0]
+  res.locals.hasSubDomain = hasSubDomain
+  next();
+}

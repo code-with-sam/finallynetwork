@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let session = require('express-session');
+let util = require('./modules/util');
 
 let env = require('dotenv').config()
 
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(util.subdomainCheck);
 
 app.use('/auth', auth);
 app.use('/logout', auth);

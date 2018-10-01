@@ -7,12 +7,8 @@ const templateController = require('../controllers/template')
 const accountController = require('../controllers/account')
 
 router.get('/', function(req, res, next) {
-  const domain = req.headers.host;
-  const subDomain = domain.split('.');
-
-  if(subDomain.length > 2) {
-      username = subDomain[0]
-      templateController.renderProfile(username, res)
+  if(res.locals.hasSubDomain) {
+      templateController.renderProfile(res.locals.subDomain, res)
   } else {
       res.render('index');
   }
@@ -33,10 +29,7 @@ router.get('/blog/:permlink', (req, res) => {
 
 router.get('/@:username', (req, res) => {
   const username = req.params.username
-  let domain = req.headers.host;
-  let subDomain = domain.split('.');
-
-  if(subDomain.length > 2) {
+  if(res.locals.hasSubDomain) {
       res.redirect('/');
   } else {
     templateController.renderProfile(username, res)
@@ -44,13 +37,9 @@ router.get('/@:username', (req, res) => {
 });
 
 router.get('/:permlink', (req, res) => {
-  const domain = req.headers.host;
-  const subDomain = domain.split('.');
-  const username = subDomain[0];
   const permlink = req.params.permlink
-
-  if(subDomain.length > 2) {
-    templateController.renderSingle(username, permlink, res)
+  if(res.locals.hasSubDomain) {
+    templateController.renderSingle(res.locals.subDomain, permlink, res)
   } else {
     let err = new Error('Not Found');
     err.status = 404;
