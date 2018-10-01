@@ -72,6 +72,7 @@ const hckr = {
       start_permlink: hckr.lastPermlink }
     }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
+      result = hckr.filterOutResteems(result, hckr.username)
       let posts = hckr.tag !== '' ? hckr.filterByTag(result, hckr.tag) : result
       if (err === null) hckr.loopUserPosts(loadMore, posts)
     })
@@ -82,6 +83,10 @@ const hckr = {
       let tags = JSON.parse(post.json_metadata).tags
       if( tags.includes(tag) || post.parent_permlink === tag ) return post
     })
+  },
+
+  filterOutResteems(posts, username){
+    return posts.filter(post => post.author === username)
   },
 
   loopUserPosts(loadMore, posts){
