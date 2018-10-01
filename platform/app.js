@@ -5,11 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let session = require('express-session');
+let util = require('./modules/util');
 
 let env = require('dotenv').config()
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var api = require('./routes/api');
 
 let config = require('./config')
 
@@ -30,9 +32,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(util.subdomainCheck);
 
 app.use('/auth', auth);
 app.use('/logout', auth);
+app.use('/api', api);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
