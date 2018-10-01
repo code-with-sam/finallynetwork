@@ -11,6 +11,7 @@ let env = require('dotenv').config()
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var api = require('./routes/api');
 
 let config = require('./config')
 
@@ -35,6 +36,7 @@ app.use(util.subdomainCheck);
 
 app.use('/auth', auth);
 app.use('/logout', auth);
+app.use('/api', api);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
