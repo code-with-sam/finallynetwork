@@ -13,6 +13,14 @@
   margin-bottom: 0;
 }
 
+.beta-modal__link {
+  font-family: 'Courier', monospace;
+  font-weight: 300;
+  font-size: 12px;
+  margin-bottom: 0;
+  color: #72d1ed;
+}
+
 .beta-unlock {
   position: fixed;
   top: 0;

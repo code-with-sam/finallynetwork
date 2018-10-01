@@ -14,13 +14,18 @@ const app = {
     const page = $('main').attr('class').split(/\s+/)
     if( page.includes('landing') ) this.loadNewsLinks()
     if( page.includes('blog') ) this.loadRecentPosts()
-    if( page.includes('dashboard') ) this.showSelectedThemeInDropdown()
+    if( page.includes('dashboard') ) this.initDashboard()
   },
 
   UiActions() {
     $('.header__beta').on('click', () => $('.modal').fadeIn() )
     $('.modal .submit').on('click', (e) => this.showBetaModal(e) )
     $('.dashboard__save').on('click', (e) => this.updatetheme(e) )
+    $('.dashboard__button--unlock').on('click', (e) => this.unlockAction(e) );
+  },
+
+  initDashboard(){
+    this.showSelectedThemeInDropdown()
   },
 
   showBetaModal(e){
@@ -98,6 +103,16 @@ const app = {
     </section>`)
       finallycomments.loadEmbed('.post__comments')
   },
+
+  unlockAction(e) {
+    e.preventDefault();
+    const username = $('.dashboard').data('username')
+    const val = $('.dashboard__input--unlock-amount').val()
+    const steem = val === '' ? 1 : parseFloat(val)
+    const transferUrl = `https://steemconnect.com/sign/transfer?from=${username}&to=finallynetwork&amount=${steem.toFixed(3)}%20STEEM&memo=unlock`
+    const transferWindow = window.open(transferUrl,'Steemconnect Transfer','height=700,width=600');
+    if (window.focus) transferWindow.focus();
+  }
 
 }
 

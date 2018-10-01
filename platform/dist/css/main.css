@@ -520,7 +520,7 @@ margin-bottom: 50px;
 .dashboard__table th{
   padding-bottom: 5px;
 }
-.dashboard__save {
+.dashboard__button {
   margin-left: 5px;
   padding: 0px 10px;
   border: solid 1px #7f8d8b;
@@ -529,7 +529,7 @@ margin-bottom: 50px;
   cursor: pointer;
   line-height: 1;
 }
-.dashboard__tag-select {
+.dashboard__input {
   margin-left: 5px;
   padding: 3px 10px;
   border: solid 1px #7f8d8b;
