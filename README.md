@@ -22,6 +22,9 @@ touch  .env
 // .env add database details
 FNET_DATABASE_USER=user
 FNET_DATABASE_PASSWORD=password
+CLIENT_ID=steemconnectid
+REDIRECT_URI=http://localhost:3000/auth/
+SESSION_SECRET=supersecretstring
 ```
 
 `npm install` - to download dependencies
