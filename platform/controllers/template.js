@@ -5,12 +5,14 @@ const accountController = require('../controllers/account')
 
 module.exports.renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
+    console.log(result)
     if (err) throw (err);
     const THEME = themeController.checkThemeResult(result)
+    const TAG = result ? result.tag : ''
     res.render('profile', {
       username,
       theme: THEME,
-      tag: result.tag,
+      tag: TAG,
       pro: accountController.accountStatus(result)
     })
   })
