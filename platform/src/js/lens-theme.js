@@ -34,9 +34,14 @@ $('.overlay__bg').on('click', () => {
 function getBlog(query, initial, callback){
   steem.api.getDiscussionsByBlog(query, (err, result) => {
     if (err) console.log(err)
+    result = filterOutResteems(result, USERNAME)
     let photos = TAG !== '' ? filterByTag(result, TAG) : result
     displayImages(photos, initial, initial ? false : callback)
   });
+}
+
+function filterOutResteems(posts, username){
+  return posts.filter(post => post.author === username)
 }
 
 function filterByTag(posts, tag){

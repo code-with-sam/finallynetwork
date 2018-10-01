@@ -25,7 +25,7 @@ async function loadUserPosts(loadMore) {
   const username = $('main').data('username')
   const profileImage = await getSteemProfileImage(username)
   const TAG = $('main').data('tag');
-  
+
   let query = { tag: username, limit: 15 }
   const listPosts = (posts) => {
     if (posts.length < 10) $('.load-more-posts').remove()
@@ -71,9 +71,14 @@ async function loadUserPosts(loadMore) {
     start_permlink: $('tr').last().data('permlink') }
   }
   steem.api.getDiscussionsByBlog(query, (err, result) => {
+    result = filterOutResteems(result, username)
     let posts = TAG !== '' ? filterByTag(result, TAG) : result
     if (err === null) listPosts(posts)
   })
+}
+
+function filterOutResteems(posts, username){
+  return posts.filter(post => post.author === username)
 }
 
 function filterByTag(posts, tag){
@@ -165,10 +170,6 @@ async function appendSingePostContent(post) {
 
   var html = purify.sanitize(converter.makeHtml(post.body))
   let image;
-
-  console.log( 'ehhehe')
-  console.log('post data',  post )
-
 
   if( typeof JSON.parse(post.json_metadata) === 'undefined' ){
     post.body = replaceMarkdownImagesWithHtml(post.body)
