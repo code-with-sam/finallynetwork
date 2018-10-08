@@ -14,7 +14,7 @@ let theme = {
   lastPermlink: '',
 
   init(){
-    $('main').addClass('theme-theme')
+    $('main').addClass(`${theme.name}-theme`)
     theme.uiActions()
     theme.isBlogFeed() ? theme.initBlogFeed(false) : theme.loadSinglePost()
   },
@@ -103,7 +103,8 @@ let theme = {
   }
 }
 
-module.exports.init = (blogFeedTemplate, blogFeedItemTemplate, singlePageTemplate) => {
+module.exports.init = (name, blogFeedTemplate, blogFeedItemTemplate, singlePageTemplate) => {
+  theme.name = name
   theme.blogFeedTemplate = blogFeedTemplate
   theme.blogFeedItemTemplate = blogFeedItemTemplate
   theme.singlePageTemplate = singlePageTemplate

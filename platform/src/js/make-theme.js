@@ -1,8 +1,4 @@
-// import steem from 'steem'
 import $ from 'jquery'
-// import showdown from 'showdown'
-// import finallycomments from 'finallycomments'
-// import purify from 'dompurify'
 import moment from 'moment'
 
 import f from './modules/finally-core'
@@ -10,8 +6,10 @@ import f from './modules/finally-core'
 
 const make = {
   username: $('main').data('username'),
+
   init() {
     f.init(
+      'make',
       make.blogFeedTemplate,
       make.blogFeedItemTemplate,
       make.singlePageTemplate )
@@ -37,7 +35,6 @@ const make = {
     <h2>${post.title}</h2>
     ${html}`
   }
-
 
 }
 
