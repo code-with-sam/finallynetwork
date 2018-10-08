@@ -7,7 +7,7 @@ import purify from 'dompurify'
 import moment from 'moment'
 
 
-module.exports.theme = {
+let theme = {
   permlink: $('main').data('permlink'),
   username: $('main').data('username'),
   tag: $('main').data('tag'),
@@ -15,14 +15,14 @@ module.exports.theme = {
 
   init(){
     $('main').addClass('theme-theme')
-    module.exports.theme.uiActions()
-    module.exports.theme.isBlogFeed() ? module.exports.theme.initBlogFeed(false) : module.exports.theme.loadSinglePost()
+    theme.uiActions()
+    theme.isBlogFeed() ? theme.initBlogFeed(false) : theme.loadSinglePost()
   },
 
   uiActions() {
     $('main').on('click','.load-more-posts', (e) => {
       e.preventDefault()
-      module.exports.theme.loadUserPosts(true)
+      theme.loadUserPosts(true)
     })
   },
 
@@ -32,22 +32,22 @@ module.exports.theme = {
 
   async loadSinglePost(){
     finallycomments.init()
-    const postData = await steem.api.getContentAsync(module.exports.theme.username, module.exports.theme.permlink)
-    module.exports.theme.appendSingePostContent(postData)
-    module.exports.theme.appendSinglePostComments(postData)
+    const postData = await steem.api.getContentAsync(theme.username, theme.permlink)
+    theme.appendSingePostContent(postData)
+    theme.appendSinglePostComments(postData)
   },
 
   appendSingePostContent(post) {
     var converter = new showdown.Converter();
     var html = purify.sanitize(converter.makeHtml(post.body))
-    let template = `<a href="/@${module.exports.theme.username}/" class="back-btn">⬅</a><h2>${post.title}</h2>${html}`
+    let template = theme.singlePageTemplate(post, html)
     $('main').append(template)
   },
 
   appendSinglePostComments(postData) {
     $('main').append(
     `<section class="post__comments"
-    data-id="https://steemit.com/${postData.category}/@${postData.author}/${module.exports.theme.permlink}"
+    data-id="https://steemit.com/${postData.category}/@${postData.author}/${theme.permlink}"
     data-reputation="false"
     data-values="false"
     data-profile="false"
@@ -60,20 +60,20 @@ module.exports.theme = {
   },
 
   initBlogFeed(){
-    $('main').append(module.exports.theme.blogFeedTemplate())
-    module.exports.theme.loadUserPosts(false)
+    $('main').append(theme.blogFeedTemplate())
+    theme.loadUserPosts(false)
   },
 
   loadUserPosts(loadMore) {
-    let query = { tag: module.exports.theme.username, limit: 15 }
+    let query = { tag: theme.username, limit: 15 }
     if(loadMore) {
-    query = { tag: module.exports.theme.username, limit: 10, start_author: module.exports.theme.username,
-      start_permlink: module.exports.theme.lastPermlink }
+    query = { tag: theme.username, limit: 10, start_author: theme.username,
+      start_permlink: theme.lastPermlink }
     }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
-      result = module.exports.theme.filterOutResteems(result, module.exports.theme.username)
-      let posts = module.exports.theme.tag !== '' ? module.exports.theme.filterByTag(result, module.exports.theme.tag) : result
-      if (err === null) module.exports.theme.loopUserPosts(loadMore, posts)
+      result = theme.filterOutResteems(result, theme.username)
+      let posts = theme.tag !== '' ? theme.filterByTag(result, theme.tag) : result
+      if (err === null) theme.loopUserPosts(loadMore, posts)
     })
   },
 
@@ -89,34 +89,23 @@ module.exports.theme = {
   },
 
   loopUserPosts(loadMore, posts){
-      module.exports.theme.lastPermlink = posts[posts.length -1].permlink
+      theme.lastPermlink = posts[posts.length -1].permlink
       if (posts.length < 10) $('.load-more-posts').remove()
       for (var i = 0; i < posts.length; i++) {
         if(loadMore && i === 0) continue
-        module.exports.theme.appendPostItem(posts[i])
+        theme.appendPostItem(posts[i])
       }
   },
 
   appendPostItem(post){
-    let template = module.exports.theme.blogFeedItemTemplate(post)
+    let template = theme.blogFeedItemTemplate(post)
     $('.blog-feed').append(template)
-  },
-
-  blogFeedTemplate(){
-      return `
-      <header><h1>${module.exports.theme.username}</h1></header>
-      <section class="blog-feed"></section>
-      <section><a class="load-more-posts" href="#">Load More Posts</a></section>
-      `
-  },
-
-  blogFeedItemTemplate(post){
-    return `<div class="blog-feed__item">
-      <h2><a href="/@${module.exports.theme.username}/${post.permlink}"> ${post.title}</a></h2>
-      <h3>${moment(post.created).format("DD/MM/YY")  } | comments: ${post.children} | votes: ${post.net_votes}</h3>
-    </div>`
   }
-
 }
 
-// module.exports.theme.init()
+module.exports.init = (blogFeedTemplate, blogFeedItemTemplate, singlePageTemplate) => {
+  theme.blogFeedTemplate = blogFeedTemplate
+  theme.blogFeedItemTemplate = blogFeedItemTemplate
+  theme.singlePageTemplate = singlePageTemplate
+  theme.init()
+}
