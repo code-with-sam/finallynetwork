@@ -1,0 +1,137 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font: 15px Geneva, ‘Lucida Sans’, ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
+  background-color: #f7fbfa;
+  color: #222;
+  line-height: 1.35;
+}
+
+a {
+  color: #72d1ed;
+}
+
+img {
+  max-width: 100%;
+  margin: 0 0 20px;
+}
+p {
+  word-break: break-word;
+}
+ body {
+   background: #ccc;
+ }
+
+.make-theme {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px 0;
+}
+
+.header {
+  padding: 0 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.header__social,
+.header__title,
+.header__mail {
+  flex-basis: 25%;
+}
+.header__title {
+   flex-basis: 50%;
+}
+
+.header__tagline {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.nav {
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  border-top: 1px solid #d8d8d8;
+  padding: 15px 0;
+  margin-bottom: 20px;
+}
+
+.blog-feed {
+  padding: 50px;
+
+}
+
+.blog-feed__item {
+  margin-bottom: 50px;
+  border: solid 1px transparent;
+  padding: 20px;
+  transition: border 200ms;
+}
+
+.blog-feed__item:hover {
+  border: solid 1px #e6e6e6;
+}
+.feed-item__feature {
+  position: relative;
+  display: block;
+}
+
+.feed-item__feature:hover .feed-item__overlay {
+  opacity: 1;
+}
+.feed-item__overlay {
+  opacity: 0;
+  transition: opacity 200ms;
+  position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 25px;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+}
+
+.feed-item__overlay-title {
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.blog-feed__item img {
+  max-width: 100%;
+}
+
+.feed-item__tags {
+  margin-bottom: 20px;
+}
+
+.feed-item__tags span {
+  padding: 3px 5px;
+  font-size: 12px;
+  text-transform: capitalize;
+  background-color: #e6e6e6;
+}
+
+.feed-item__title {
+  margin-bottom: 20px;
+}
+.feed-item__title a {
+  color: #222;
+  text-decoration: none;
+}
+
+.feed-item__excerpt {
+  margin-bottom: 20px;
+}
+
+.more-posts {
+  text-align: center;
+}

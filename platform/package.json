@@ -40,7 +40,8 @@
     "sc2-sdk": "^1.1.0",
     "serve-favicon": "~2.4.5",
     "showdown": "^1.8.6",
-    "steem": "^0.7.1"
+    "steem": "^0.7.1",
+    "striptags": "^3.1.1"
   },
   "devDependencies": {
     "node-sass": "^4.9.0"
