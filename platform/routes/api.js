@@ -15,8 +15,14 @@ router.post('/:username/update', util.isAuthorized, (req, res) => {
   const authorizedUser = req.session.steemconnect.name
   const theme = req.body.theme
   const tag = req.body.tag
+  const nav = req.body.nav.split(',').map(n => n.trim())
+
   if(username === authorizedUser){
-    User.findOneAndUpdate({user: username}, {theme: theme, tag: tag }, {upsert: true}, (result) => res.json({result}));
+    User.findOneAndUpdate({user: username}, {
+        theme: theme,
+        tag: tag,
+        navigation: nav
+    }, {upsert: true}, (result) => res.json({result}));
   } else {
     res.json({
       status: 'fail',

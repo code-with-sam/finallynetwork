@@ -6,6 +6,7 @@ import f from './modules/finally-core'
 
 const make = {
   username: $('main').data('username'),
+  navigation: $('main').data('navigation'),
 
   init() {
     f.init(
