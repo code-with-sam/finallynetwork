@@ -15,7 +15,7 @@ router.post('/:username/update', util.isAuthorized, (req, res) => {
   const authorizedUser = req.session.steemconnect.name
   const theme = req.body.theme
   const tag = req.body.tag
-  const nav = req.body.nav.split(',').map(n => n.trim())
+  const nav = req.body.nav.split(',').map(n => n.trim().toLowerCase())
 
   if(username === authorizedUser){
     User.findOneAndUpdate({user: username}, {
