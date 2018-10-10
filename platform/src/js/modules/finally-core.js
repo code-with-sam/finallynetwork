@@ -27,9 +27,7 @@ let theme = {
       theme.loadUserPosts(true)
     })
     $('main').on('click','.nav__link', (e) => {
-      // e.preventDefault()
       const tag = $(e.currentTarget).data('tag')
-      console.log(tag)
       theme.reloadWithHashtag(tag)
     })
   },
@@ -47,15 +45,18 @@ let theme = {
   async loadSinglePost(){
     finallycomments.init()
     const postData = await steem.api.getContentAsync(theme.username, theme.permlink)
-    theme.appendSingePostContent(postData)
+    await theme.appendSingePostContent(postData)
     theme.appendSinglePostComments(postData)
   },
 
-  appendSingePostContent(post) {
+  async appendSingePostContent(post) {
     var converter = new showdown.Converter();
     var html = purify.sanitize(converter.makeHtml(post.body))
-    let template = theme.singlePageTemplate(post, html)
-    $('main').append(template)
+    let userProfile = await theme.getSteemProfile(theme.username)
+    let navigation = $('main').data('nav').split(',')
+    theme.setBackgroundData(userProfile)
+    $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
+    $('main').append( theme.singlePageTemplate(post, html))
   },
 
   appendSinglePostComments(postData) {
@@ -77,13 +78,12 @@ let theme = {
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
     theme.setBackgroundData(userProfile)
-    $('main').append(theme.blogFeedTemplate(userProfile, navigation))
+    $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
+    $('main').append(theme.blogFeedTemplate())
     theme.loadUserPosts(false)
   },
 
   setBackgroundData(userProfile){
-    console.log(userProfile)
-    // $('main').data('background', userProfile.cover_image)
     $('body').css('background-image', `url(${userProfile.cover_image})`)
   },
 
@@ -165,8 +165,9 @@ let theme = {
 
 }
 
-module.exports.init = (name, blogFeedTemplate, blogFeedItemTemplate, singlePageTemplate) => {
+module.exports.init = (name, blogHeaderTemplate, blogFeedTemplate, blogFeedItemTemplate, singlePageTemplate) => {
   theme.name = name
+  theme.blogHeaderTemplate = blogHeaderTemplate
   theme.blogFeedTemplate = blogFeedTemplate
   theme.blogFeedItemTemplate = blogFeedItemTemplate
   theme.singlePageTemplate = singlePageTemplate

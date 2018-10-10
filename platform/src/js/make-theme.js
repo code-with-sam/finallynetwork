@@ -11,26 +11,30 @@ const make = {
   init() {
     f.init(
       'make',
+      make.blogHeaderTemplate,
       make.blogFeedTemplate,
       make.blogFeedItemTemplate,
       make.singlePageTemplate )
   },
 
-  blogFeedTemplate(profile, navigation){
-      console.log('nav', navigation)
-      const navigationHTML = navigation
-        .map(nav => `<a href="#${nav}" class="nav__link" data-tag="${nav}">#${nav}</a>`)
-        .join('')
+  blogHeaderTemplate(profile, navigation){
+    const navigationHTML = navigation
+      .map(nav => `<a href="#${nav}" class="nav__link" data-tag="${nav}">#${nav}</a>`)
+      .join('')
+    return `
+    <header class="header">
+      <section class="header__title">
+        <img class="header__avatar" src="${profile.profile_image}" width="120" height="120">
+      </section>
+    </header>
+    <section class="header__tagline"><h2>${profile.about}</h2></section>
+    <nav class="nav">
+      ${navigationHTML}
+    </nav>`
+  },
+
+  blogFeedTemplate(){
       return `
-      <header class="header">
-        <section class="header__title">
-          <img class="header__avatar" src="${profile.profile_image}" width="120" height="120">
-        </section>
-      </header>
-      <section class="header__tagline"><h2>${profile.about}</h2></section>
-      <nav class="nav">
-        ${navigationHTML}
-      </nav>
       <section class="blog-feed"></section>
       <section class="more-posts">
         <a class="load-more-posts" href="#">Load More Posts</a>
@@ -58,9 +62,11 @@ const make = {
   },
 
   singlePageTemplate(post, html){
-    return `<a href="/@${make.username}/" class="back-btn">⬅</a>
-    <h2>${post.title}</h2>
-    ${html}`
+    return `
+    <section class="content">
+      <h2 class="content__title">${post.title}</h2>
+      ${html}
+    </section>`
   }
 
 }

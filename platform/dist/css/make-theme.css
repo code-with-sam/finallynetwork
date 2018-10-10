@@ -31,6 +31,8 @@ p {
   margin: 0 auto;
   background: #fff;
   padding: 50px 0;
+  animation: fade 500ms ease-in;
+
 }
 
 .header {
@@ -39,6 +41,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: fade 700ms ease-in;
 }
 
 
@@ -80,8 +83,9 @@ a.nav__link:hover {
 }
 
 .blog-feed {
+  min-height: 100vh;
   padding: 50px;
-
+  animation: fade 700ms ease-in;
 }
 
 .blog-feed__item {
@@ -89,6 +93,7 @@ a.nav__link:hover {
   border: solid 1px transparent;
   padding: 20px;
   transition: border 200ms;
+  animation: fade 350ms ease-in;
 }
 
 .blog-feed__item:hover {
@@ -97,6 +102,9 @@ a.nav__link:hover {
 .feed-item__feature {
   position: relative;
   display: block;
+}
+.feed-item__feature img {
+  min-width: 100%;
 }
 
 .feed-item__feature:hover .feed-item__overlay {
@@ -165,4 +173,29 @@ a.nav__link:hover {
 
 .more-posts {
   text-align: center;
+}
+
+@keyframes fade {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+
+/* Single page content*/
+
+.content {
+  padding: 50px;
+}
+.content * {
+  margin-bottom: 30px;
+}
+.content img {
+  margin-bottom: 0;
+}
+
+.content hr {
+  border: none;
+  border-bottom: solid 2px #e2e2e2;
+}
+.post__comments {
+  padding: 50px;
 }

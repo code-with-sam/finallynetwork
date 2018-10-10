@@ -24,10 +24,12 @@ module.exports.renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
     const THEME = !result ? randomTheme() : result.theme
+    const NAV = result.navigation ? result.navigation : []
     res.render('single', {
       username,
       permlink,
       theme: THEME,
+      nav: NAV,
       pro: accountController.accountStatus(result)
     });
   })
