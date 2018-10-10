@@ -12,6 +12,7 @@ const POST_LIMIT = 15;
 let theme = {
   permlink: $('main').data('permlink'),
   username: $('main').data('username'),
+  name: $('main').data('theme'),
   tag: $('main').data('tag'),
   lastPermlink: '',
 
@@ -54,7 +55,7 @@ let theme = {
     var html = purify.sanitize(converter.makeHtml(post.body))
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
-    theme.setBackgroundData(userProfile)
+    if(theme.name === 'make') theme.setBackgroundData(userProfile)
     $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
     $('main').append( theme.singlePageTemplate(post, html))
   },
@@ -77,7 +78,7 @@ let theme = {
   async initBlogFeed(){
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
-    theme.setBackgroundData(userProfile)
+    if(theme.name === 'make') theme.setBackgroundData(userProfile)
     $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
     $('main').append(theme.blogFeedTemplate())
     theme.loadUserPosts(false)

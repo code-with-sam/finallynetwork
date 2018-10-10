@@ -9,20 +9,24 @@ const hckr = {
   init() {
     f.init(
       'hckr',
+      hckr.blogHeaderTemplate,
       hckr.blogFeedTemplate,
       hckr.blogFeedItemTemplate,
       hckr.singlePageTemplate )
   },
 
+  blogHeaderTemplate(profile, navigation){
+    return `<header><h1>${hckr.username}</h1></header>`
+  },
+
   blogFeedTemplate(){
       return `
-      <header><h1>${hckr.username}</h1></header>
       <section class="blog-feed"></section>
       <section><a class="load-more-posts" href="#">Load More Posts</a></section>
       `
   },
 
-  blogFeedItemTemplate(post){
+  blogFeedItemTemplate(post, featureImageSrc, tags, excerpt){
     return `<div class="blog-feed__item">
       <h2><a href="/@${hckr.username}/${post.permlink}"> ${post.title}</a></h2>
       <h3>${moment(post.created).format("DD/MM/YY")  } | comments: ${post.children} | votes: ${post.net_votes}</h3>
