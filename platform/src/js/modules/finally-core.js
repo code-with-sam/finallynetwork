@@ -18,7 +18,7 @@ let theme = {
   init(){
     $('main').addClass(`${theme.name}-theme`)
     theme.uiActions()
-    theme.isBlogFeed() ? theme.initBlogFeed(false) : theme.loadSinglePost()
+    theme.isBlogFeed() ? theme.initBlogFeed() : theme.loadSinglePost()
   },
 
   uiActions() {
@@ -26,6 +26,18 @@ let theme = {
       e.preventDefault()
       theme.loadUserPosts(true)
     })
+    $('main').on('click','.nav__link', (e) => {
+      // e.preventDefault()
+      const tag = $(e.currentTarget).data('tag')
+      console.log(tag)
+      theme.reloadWithHashtag(tag)
+    })
+  },
+  reloadWithHashtag(tag){
+    theme.tag = tag
+    console.log(theme.tag)
+    $('main').empty()
+    theme.initBlogFeed()
   },
 
   isBlogFeed(){
@@ -61,9 +73,18 @@ let theme = {
       finallycomments.loadEmbed('.post__comments')
   },
 
-  initBlogFeed(){
-    $('main').append(theme.blogFeedTemplate())
+  async initBlogFeed(){
+    let userProfile = await theme.getSteemProfile(theme.username)
+    let navigation = $('main').data('nav').split(',')
+    theme.setBackgroundData(userProfile)
+    $('main').append(theme.blogFeedTemplate(userProfile, navigation))
     theme.loadUserPosts(false)
+  },
+
+  setBackgroundData(userProfile){
+    console.log(userProfile)
+    // $('main').data('background', userProfile.cover_image)
+    $('body').css('background-image', `url(${userProfile.cover_image})`)
   },
 
   loadUserPosts(loadMore) {
@@ -135,6 +156,11 @@ let theme = {
       image = JSON.parse(post.json_metadata).image[0]
     }
     return image;
+  },
+
+  async getSteemProfile(username){
+    let account = await steem.api.getAccountsAsync([username])
+    return JSON.parse(account[0].json_metadata).profile
   }
 
 }

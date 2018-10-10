@@ -8,6 +8,10 @@ body {
   background-color: #f7fbfa;
   color: #222;
   line-height: 1.35;
+  background: #fafafa;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 a {
@@ -21,9 +25,6 @@ img {
 p {
   word-break: break-word;
 }
- body {
-   background: #ccc;
- }
 
 .make-theme {
   max-width: 900px;
@@ -37,19 +38,21 @@ p {
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.header__social,
-.header__title,
-.header__mail {
-  flex-basis: 25%;
-}
+
 .header__title {
    flex-basis: 50%;
 }
 
+.header__avatar {
+  border-radius: 50%;
+}
 .header__tagline {
+  font-size: 14px;
   text-align: center;
+  padding: 0 75px;
   margin-bottom: 50px;
 }
 
@@ -61,13 +64,28 @@ p {
   margin-bottom: 20px;
 }
 
+a.nav__link {
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin: 0 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 200ms;
+}
+
+a.nav__link:hover {
+  color: #bbb;
+}
+
 .blog-feed {
   padding: 50px;
 
 }
 
 .blog-feed__item {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   border: solid 1px transparent;
   padding: 20px;
   transition: border 200ms;
@@ -114,10 +132,12 @@ p {
 }
 
 .feed-item__tags span {
-  padding: 3px 5px;
-  font-size: 12px;
+  padding: 5px 7px;
+  border-radius: 1px;
+  font-size: 13px;
   text-transform: capitalize;
-  background-color: #e6e6e6;
+  background-color: #f1f0f0;
+  border: solid 1px #e6e6e6;
 }
 
 .feed-item__title {
@@ -130,6 +150,17 @@ p {
 
 .feed-item__excerpt {
   margin-bottom: 20px;
+}
+.feed-item__interactions {
+  display: flex;
+}
+.feed-item__heart {
+  margin-bottom: 0;
+}
+.feed-item__votes {
+  font-size: 14px;
+  line-height: 25px;
+  margin-left: 8px;
 }
 
 .more-posts {
