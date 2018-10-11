@@ -7,8 +7,8 @@ module.exports.renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
     const THEME = themeController.checkThemeResult(result)
-    const TAG = result.tag ? result.tag : ''
-    const NAV = result.navigation ? result.navigation : []
+    const TAG = result && result.tag ? result.tag : ''
+    const NAV = result && result.navigation ? result.navigation : []
 
     res.render('profile', {
       username,
@@ -24,7 +24,7 @@ module.exports.renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
     const THEME = !result ? randomTheme() : result.theme
-    const NAV = result.navigation ? result.navigation : []
+    const NAV = result && result.navigation ? result.navigation : []
     res.render('single', {
       username,
       permlink,
