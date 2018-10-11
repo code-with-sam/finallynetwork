@@ -1,6 +1,6 @@
 
 function randomTheme() {
-  const themes = ['hckr', 'lens', 'campfire']
+  const themes = ['hckr', 'lens', 'campfire', 'make']
   return themes[Math.floor(Math.random() * 3)]
 }
 
