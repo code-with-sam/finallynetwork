@@ -7,6 +7,7 @@ var userSchema = new Schema({
     theme: String,
     beta: { type: Boolean, default: false },
     tag: { type: String, default: '' },
+    navigation: { type: [String], default: []}
 });
 
 module.exports = mongoose.model('User', userSchema);

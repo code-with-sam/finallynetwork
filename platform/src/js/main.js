@@ -42,12 +42,13 @@ const app = {
   updatetheme(e) {
     const theme = $('.dashboard__theme-select :selected').val();
     const tag = $('.dashboard__tag-select').val();
+    const nav = $('.dashboard__nav-select').val();
     const username = $('.dashboard').data('username')
     e.preventDefault()
     $.post({
         url: `/api/${username}/update`,
         dataType: 'json',
-        data: { theme, tag }
+        data: { theme, tag, nav }
       },
       (response) => location.reload())
   },

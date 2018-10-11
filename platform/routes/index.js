@@ -19,8 +19,14 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
   User.findOne({user : username}, (err, result) => {
       if (err) throw (err);
       const THEME = !result ? false : result.theme
-      const TAG = result ? result.tag : ''
-      res.render('dashboard', {username, selectedTheme : THEME, tag: TAG, pro: accountController.accountStatus(result) } );
+      const TAG = result.tag ? result.tag : ''
+      const NAV = result.navigation ? result.navigation : []
+      res.render('dashboard', {
+        username,
+        selectedTheme : THEME,
+        tag: TAG,
+        navigation: NAV.join(','),
+        pro: accountController.accountStatus(result) } );
     })
 });
 

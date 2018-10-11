@@ -5,14 +5,16 @@ const accountController = require('../controllers/account')
 
 module.exports.renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
-    console.log(result)
     if (err) throw (err);
     const THEME = themeController.checkThemeResult(result)
-    const TAG = result ? result.tag : ''
+    const TAG = result && result.tag ? result.tag : ''
+    const NAV = result && result.navigation ? result.navigation : []
+
     res.render('profile', {
       username,
       theme: THEME,
       tag: TAG,
+      nav: NAV,
       pro: accountController.accountStatus(result)
     })
   })
@@ -22,10 +24,12 @@ module.exports.renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
     const THEME = !result ? randomTheme() : result.theme
+    const NAV = result && result.navigation ? result.navigation : []
     res.render('single', {
       username,
       permlink,
       theme: THEME,
+      nav: NAV,
       pro: accountController.accountStatus(result)
     });
   })

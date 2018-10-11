@@ -12,7 +12,8 @@ block content
           tr
             th Website
             th Theme
-            th(title="pecify a hashtag to use for your blog") Hashtag Filter
+            th(title="specify a hashtag to use for your blog") Hashtag Filter
+            th(title="list of tags for navigation") Navigation
             th
           tr
             td: a(href=`/@${username}`) /@#{username}
@@ -21,9 +22,12 @@ block content
                 option(value="lens") Lens
                 option(value="hckr") HCKR
                 option(value="campfire") Campfire
+                option(value="make") Make
             td
               span #
               input.dashboard__input.dashboard__tag-select(type="text" value=`${tag}` placeholder="e.g photography")
+            td
+              input.dashboard__input.dashboard__nav-select(type="text" value=`${navigation}` placeholder="e.g photography, travel")
             td: span.dashboard__button.dashboard__save save
 
       section.dashboard__block
