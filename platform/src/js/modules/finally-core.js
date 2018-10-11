@@ -8,6 +8,8 @@ import moment from 'moment'
 import striptags from 'striptags'
 
 const POST_LIMIT = 15;
+const MARKDOWN_SETTINGS = {tables: true}
+let USE_BACKGROUND_PHOTO = false;
 
 let theme = {
   permlink: $('main').data('permlink'),
@@ -20,6 +22,7 @@ let theme = {
     $('main').addClass(`${theme.name}-theme`)
     theme.uiActions()
     theme.isBlogFeed() ? theme.initBlogFeed() : theme.loadSinglePost()
+    USE_BACKGROUND_PHOTO = theme.name === 'make'
   },
 
   uiActions() {
@@ -86,7 +89,7 @@ let theme = {
   async initBlogFeed(){
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
-    if(theme.name === 'make') theme.setBackgroundData(userProfile)
+    if(USE_BACKGROUND_PHOTO) theme.setBackgroundData(userProfile)
     $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
     $('main').append(theme.blogFeedTemplate())
     theme.loadUserPosts(false)
@@ -145,7 +148,7 @@ let theme = {
   },
 
   getPostExcerpt(post){
-    const converter = new showdown.Converter();
+    const converter = new showdown.Converter(MARKDOWN_SETTINGS);
     let placeholder = document.createElement('div');
     placeholder.innerHTML = purify.sanitize(converter.makeHtml(post.body))
     placeholder = placeholder.querySelector('p').innerHTML;
@@ -156,7 +159,7 @@ let theme = {
   generatePostFeatureImage(post){
     let image
     if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
-      const converter = new showdown.Converter();
+      const converter = new showdown.Converter(MARKDOWN_SETTINGS);
       const placeholder = document.createElement('div');
       placeholder.innerHTML = purify.sanitize(converter.makeHtml(post.body))
       let image = placeholder.querySelector('img');
