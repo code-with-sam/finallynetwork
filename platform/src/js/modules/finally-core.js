@@ -34,7 +34,6 @@ let theme = {
   },
   reloadWithHashtag(tag){
     theme.tag = tag
-    console.log(theme.tag)
     $('main').empty()
     theme.initBlogFeed()
   },
@@ -51,13 +50,22 @@ let theme = {
   },
 
   async appendSingePostContent(post) {
-    var converter = new showdown.Converter();
-    var html = purify.sanitize(converter.makeHtml(post.body))
+    let html = theme.generateSinglePostHtml(post)
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
-    if(theme.name === 'make') theme.setBackgroundData(userProfile)
+    if(USE_BACKGROUND_PHOTO) theme.setBackgroundData(userProfile)
     $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
-    $('main').append( theme.singlePageTemplate(post, html))
+    $('main').append(theme.singlePageTemplate(post, html))
+  },
+
+  generateSinglePostHtml(post){
+    let converter = new showdown.Converter(MARKDOWN_SETTINGS);
+    let html = purify.sanitize(converter.makeHtml(post.body))
+    const urlInPRegex = /<p>(https?:\/\/[^\s]+)+(\.png|\.jpeg|\.gif|\.jpg)<\/p>/g;
+    const urlRegexImagesNonGif = /(https?:\/\/[^\s]+)+(\.png|\.jpeg|\.jpg)/g;
+    html = html.replace(urlInPRegex, url => '<img src="' + url.substr(3, url.length-4) + '">')
+    html = html.replace(urlRegexImagesNonGif, url => 'https://steemitimages.com/1500x1500/' + url )
+    return html
   },
 
   appendSinglePostComments(postData) {
@@ -85,7 +93,7 @@ let theme = {
   },
 
   setBackgroundData(userProfile){
-    $('body').css('background-image', `url(${userProfile.cover_image})`)
+    $('body').css('background-image', `url(https://steemitimages.com/1500x1500/${userProfile.cover_image})`)
   },
 
   loadUserPosts(loadMore) {

@@ -51,7 +51,7 @@ const make = {
         <div class="feed-item__overlay">
           <h3 class="feed-item__overlay-title">Read More</h3>
         </div>
-        <img src="${featureImageSrc}">
+        <img src="https://steemitimages.com/900x500/${featureImageSrc}">
       </a>
       <div class="feed-item__tags">${tags}</div>
       <h2 class="feed-item__title"><a href="/@${make.username}/${post.permlink}"> ${post.title}</a></h2>
