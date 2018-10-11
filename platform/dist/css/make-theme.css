@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700|Lato');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 body {
-  font: 15px Geneva, ‘Lucida Sans’, ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
+  font: 15px 'Lato', Geneva, ‘Lucida Sans’, ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
   background-color: #f7fbfa;
   color: #222;
   line-height: 1.35;
@@ -20,10 +22,12 @@ a {
 
 img {
   max-width: 100%;
-  margin: 0 0 20px;
 }
 p {
   word-break: break-word;
+}
+th, td {
+  vertical-align:top;
 }
 
 .make-theme {
@@ -36,6 +40,7 @@ p {
 }
 
 .header {
+  font: 15px 'Karla', Geneva, ‘Lucida Sans’, ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
   padding: 0 50px;
   text-align: center;
   display: flex;
@@ -44,19 +49,27 @@ p {
   animation: fade 700ms ease-in;
 }
 
-
 .header__title {
    flex-basis: 50%;
 }
 
 .header__avatar {
   border-radius: 50%;
+  margin-bottom: 20px;
 }
+
 .header__tagline {
   font-size: 14px;
   text-align: center;
-  padding: 0 75px;
+  padding: 0 100px;
   margin-bottom: 50px;
+}
+.header__tagline h2 {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.7;
 }
 
 .nav {
@@ -65,6 +78,7 @@ p {
   border-top: 1px solid #d8d8d8;
   padding: 15px 0;
   margin-bottom: 20px;
+  background: #f9f9f9;
 }
 
 a.nav__link {
@@ -105,6 +119,7 @@ a.nav__link:hover {
 }
 .feed-item__feature img {
   min-width: 100%;
+  margin-bottom: 20px;
 }
 
 .feed-item__feature:hover .feed-item__overlay {
@@ -150,7 +165,12 @@ a.nav__link:hover {
 
 .feed-item__title {
   margin-bottom: 20px;
+  font-family: 'Karla', Geneva, ‘Lucida Sans’, ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
 }
+
 .feed-item__title a {
   color: #222;
   text-decoration: none;
@@ -189,7 +209,8 @@ a.nav__link:hover {
   margin-bottom: 30px;
 }
 .content img {
-  margin-bottom: 0;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .content hr {
