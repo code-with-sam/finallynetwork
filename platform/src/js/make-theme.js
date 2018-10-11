@@ -18,19 +18,21 @@ const make = {
   },
 
   blogHeaderTemplate(profile, navigation){
-    const navigationHTML = navigation
+    const navigationLinks = navigation
       .map(nav => `<a href="#${nav}" class="nav__link" data-tag="${nav}">#${nav}</a>`)
       .join('')
-    return `
-    <header class="header">
+
+    const navbar = navigation[0] === '' ? '' : `<nav class="nav">
+      ${navigationLinks}
+    </nav>`
+
+    return `<header class="header">
       <section class="header__title">
-        <img class="header__avatar" src="${profile.profile_image}" width="120" height="120">
+        <img class="header__avatar" src="https://steemitimages.com/150x150/${profile.profile_image}" width="120" height="120">
       </section>
     </header>
     <section class="header__tagline"><h2>${profile.about}</h2></section>
-    <nav class="nav">
-      ${navigationHTML}
-    </nav>`
+    ${navbar}`
   },
 
   blogFeedTemplate(){
