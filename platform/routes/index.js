@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const util = require('../modules/util');
 const User = require('../models/user')
-const themeController = require('../controllers/theme')
 const templateController = require('../controllers/template')
 const accountController = require('../controllers/account')
 
