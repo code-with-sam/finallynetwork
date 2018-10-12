@@ -6,7 +6,7 @@ import finallycomments from 'finallycomments'
 import purify from 'dompurify'
 import moment from 'moment'
 import striptags from 'striptags'
-import beta from '../beta.js'
+import beta from './finally-try'
 
 const POST_LIMIT = 15;
 const MARKDOWN_SETTINGS = {tables: true}
