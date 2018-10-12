@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    user: String,
+    user: { type: String, unique: true },
     theme: String,
     beta: { type: Boolean, default: false },
     tag: { type: String, default: '' },
