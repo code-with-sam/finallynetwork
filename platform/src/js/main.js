@@ -29,9 +29,17 @@ const app = {
   },
 
   showBetaModal(e){
+    e.preventDefault()
       let username = $('.modal .username').val()
-      window.location.href = `/@${username}`
-      e.preventDefault()
+      let theme = $('.modal__theme-select :selected').val()
+      $.post({
+          url: `/api/${username}/create`,
+          dataType: 'json',
+          data: { theme }
+        },
+        (response) =>  window.location.href = `/@${username}`
+      )
+
   },
 
   showSelectedThemeInDropdown(){

@@ -1,12 +1,11 @@
 const User = require('../models/user')
-const themeController = require('../controllers/theme')
 const accountController = require('../controllers/account')
-
+const DEFAULT_THEME = 'campfire'
 
 module.exports.renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
-    const THEME = themeController.checkThemeResult(result)
+    const THEME = result && result.theme ? result.theme : DEFAULT_THEME
     const TAG = result && result.tag ? result.tag : ''
     const NAV = result && result.navigation ? result.navigation : []
 
@@ -23,7 +22,7 @@ module.exports.renderProfile = (username, res) => {
 module.exports.renderSingle = (username, permlink, res) => {
   User.findOne({user : username}, (err, result) => {
     if (err) throw (err);
-    const THEME = !result ? randomTheme() : result.theme
+    const THEME = result && result.theme ? result.theme : DEFAULT_THEME
     const NAV = result && result.navigation ? result.navigation : []
     res.render('single', {
       username,
