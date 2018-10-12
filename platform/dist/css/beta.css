@@ -1,86 +1,52 @@
-.beta-modal {
+@import url('https://fonts.googleapis.com/css?family=Lato:700');
+
+.powered {
   position: fixed;
   bottom: 0;
-  left: 0;
-  background: #fff;
-  padding: 15px 20px;
-  margin: 10px;
-}
-.beta-modal__title {
-  font-family: 'Courier', monospace;
-  font-weight: 300;
-  font-size: 12px;
-  margin-bottom: 0;
-}
-
-.beta-modal__link {
-  font-family: 'Courier', monospace;
-  font-weight: 300;
-  font-size: 12px;
-  margin-bottom: 0;
-  color: #72d1ed;
-}
-
-.beta-unlock {
-  position: fixed;
-  top: 0;
   right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0,0,0,0.2);
+  margin-right: 50px;
+  border: solid 1px #ececec;
+  background: #fafafa;
+  box-shadow: 0 0 14px rgba(0,0,0,0.03);
+  transition: all 300ms ease-in;
+  animation: fadeInUp 800ms ease-in;
+}
+.powered:hover {
+  box-shadow: 0 0 14px rgba(0,0,0,0.08);
+  transform: scale(1.02);
 }
 
-.beta-unlock__frame {
-  min-width: 400px;
-  max-width: 500px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 0 20px 4px rgba(255,255,255,0.1);
-  border-radius: 2px;
-}
-
-.beta-unlock__details {
-  max-width: 70%;
-  margin: 0 auto 20px;
-}
-
-.beta-unlock__title {
-  max-width: 70%;
-  margin: 0 auto 20px;
-}
-
-.beta-unlock__unlock {
-  max-width: 70%;
-  margin: 0 auto 20px;
-}
-
-.beta-unlock__number {
+.powered__link {
   display: block;
-  width: 100%;
-  margin: 0 auto 20px;
-  padding: 15px;
-  max-width: 70%;
-  text-align: center;
+  /*float: left;*/
+  color: #444;
+  font-weight: 700;
+}
+.powered__logo {
+  width: 28px;
+  float: left;
+  margin: 8px 8px;
+}
+.powered__tagline {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  display: inline-block;
+  border-left: solid 1px #ececec;
+  padding: 8px 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 28px;
 }
 
-.beta-unlock__submit {
-  max-width: 50%;
-  margin: 0 auto 20px;
-  display: block;
-  font-size: 16px;
 
-}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
 
-a.beta-unlock__submit:hover,
-a.beta-unlock__submit:active,
-a.beta-unlock__submit:visited,
-a.beta-unlock__submit:focus {
-  color: #222;
-  font-size: 16px;
+  }
 }
