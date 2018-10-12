@@ -5,6 +5,8 @@ import showdown from 'showdown'
 import inview from 'jquery-inview'
 import finallycomments from 'finallycomments'
 import purify from 'dompurify'
+import beta from '../beta.js'
+beta.init()
 
 const Masonry = require('masonry-layout')
 const USERNAME = $('main').data('username');

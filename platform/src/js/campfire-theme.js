@@ -4,6 +4,8 @@ import $ from 'jquery'
 import showdown from 'showdown'
 import purify from 'dompurify'
 import finallycomments from 'finallycomments'
+import beta from '../beta.js'
+beta.init()
 
 const converter = new showdown.Converter({ tables: true })
 

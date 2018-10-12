@@ -6,6 +6,7 @@ import finallycomments from 'finallycomments'
 import purify from 'dompurify'
 import moment from 'moment'
 import striptags from 'striptags'
+import beta from '../beta.js'
 
 const POST_LIMIT = 15;
 const MARKDOWN_SETTINGS = {tables: true}
@@ -19,6 +20,7 @@ let theme = {
   lastPermlink: '',
 
   init(){
+    beta.init()
     $('main').addClass(`${theme.name}-theme`)
     theme.uiActions()
     theme.isBlogFeed() ? theme.initBlogFeed() : theme.loadSinglePost()
