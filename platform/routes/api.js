@@ -3,11 +3,10 @@ const router = express.Router();
 const User = require('../models/user')
 const util = require('../modules/util');
 
-router.post('/:username/theme', (req, res) => {
+router.post('/:username/create', (req, res) => {
   const username = req.params.username
   const theme = req.body.theme
-  const tag = req.body.tag
-  User.findOneAndUpdate({user: username}, {theme: theme }, {upsert: true}, (result) => res.json({result}));
+  User.create({user: username, theme: theme}, (err, result) => res.json({result}))
 });
 
 router.post('/:username/update', util.isAuthorized, (req, res) => {
