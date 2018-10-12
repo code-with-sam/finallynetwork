@@ -18,7 +18,6 @@
 
 .powered__link {
   display: block;
-  /*float: left;*/
   color: #444;
   font-weight: 700;
 }
@@ -36,6 +35,13 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   line-height: 28px;
+}
+
+a.powered__link:hover,
+a.powered__link:active,
+a.powered__link:visited,
+a.powered__link:focus {
+  color: #444;
 }
 
 
