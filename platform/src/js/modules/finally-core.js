@@ -12,12 +12,15 @@ const POST_LIMIT = 15;
 const MARKDOWN_SETTINGS = {tables: true}
 let USE_BACKGROUND_PHOTO = false;
 
+// const CONTAINER = $('main')
+
 let theme = {
   permlink: $('main').data('permlink'),
   username: $('main').data('username'),
   name: $('main').data('theme'),
   tag: $('main').data('tag'),
   lastPermlink: '',
+  showRestems: $('main').data('show-resteems'),
 
   init(){
     beta.init()

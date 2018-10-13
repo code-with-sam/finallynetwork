@@ -4,16 +4,15 @@ const DEFAULT_THEME = 'campfire'
 
 module.exports.renderProfile = (username, res) => {
   User.findOne({user : username}, (err, result) => {
+    if (result === null ) res.render('profile', { username, theme : DEFAULT_THEME, tag: '', nav : [], pro :false })
     if (err) throw (err);
-    const THEME = result && result.theme ? result.theme : DEFAULT_THEME
-    const TAG = result && result.tag ? result.tag : ''
-    const NAV = result && result.navigation ? result.navigation : []
 
     res.render('profile', {
       username,
-      theme: THEME,
-      tag: TAG,
-      nav: NAV,
+      theme: result.theme,
+      tag: result.tag,
+      nav: result.navigation,
+      showResteems: result.showResteems,
       pro: accountController.accountStatus(result)
     })
   })

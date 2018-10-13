@@ -15,12 +15,14 @@ router.post('/:username/update', util.isAuthorized, (req, res) => {
   const theme = req.body.theme
   const tag = req.body.tag
   const nav = req.body.nav.split(',').map(n => n.trim().toLowerCase())
+  const showResteems = req.body.showResteems
 
   if(username === authorizedUser){
     User.findOneAndUpdate({user: username}, {
         theme: theme,
         tag: tag,
-        navigation: nav
+        navigation: nav,
+        showResteems: showResteems
     }, {upsert: true}, (result) => res.json({result}));
   } else {
     res.json({

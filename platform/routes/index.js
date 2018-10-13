@@ -25,7 +25,8 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
         selectedTheme : THEME,
         tag: TAG,
         navigation: NAV.join(','),
-        pro: accountController.accountStatus(result) } );
+        pro: accountController.accountStatus(result),
+        showResteems: result.showResteems  } );
     })
 });
 

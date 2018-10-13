@@ -19,6 +19,8 @@ let allContent = []
 let allUsers = []
 let msnry, lastTop;
 let $gallery = $('.gallery')
+let showRestems = $('main').data('show-resteems')
+
 
 getBlog(query, true)
 
@@ -36,7 +38,7 @@ $('.overlay__bg').on('click', () => {
 function getBlog(query, initial, callback){
   steem.api.getDiscussionsByBlog(query, (err, result) => {
     if (err) console.log(err)
-    result = filterOutResteems(result, USERNAME)
+    result = showRestems ? result : filterOutResteems(result, USERNAME)
     let photos = TAG !== '' ? filterByTag(result, TAG) : result
     displayImages(photos, initial, initial ? false : callback)
   });
