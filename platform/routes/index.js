@@ -25,7 +25,8 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
         selectedTheme : THEME,
         tag: TAG,
         navigation: NAV.join(','),
-        pro: accountController.accountStatus(result) } );
+        pro: accountController.accountStatus(result),
+        showResteems: result.showResteems  } );
     })
 });
 
@@ -56,6 +57,14 @@ router.get('/@:username/:permlink', (req, res) => {
   const username = req.params.username
   const permlink = req.params.permlink
   templateController.renderSingle(username, permlink, res)
+});
+
+
+router.get('/@:username/resteem/@:author/:permlink', (req, res) => {
+  const username = req.params.username
+  const permlink = req.params.permlink
+  const author = req.params.author
+  templateController.renderResteem(username, author, permlink, res)
 });
 
 

@@ -51,12 +51,13 @@ const app = {
     const theme = $('.dashboard__theme-select :selected').val();
     const tag = $('.dashboard__tag-select').val();
     const nav = $('.dashboard__nav-select').val();
+    const showResteems = $('.dashboard__resteem-checkbox').is(':checked')
     const username = $('.dashboard').data('username')
     e.preventDefault()
     $.post({
         url: `/api/${username}/update`,
         dataType: 'json',
-        data: { theme, tag, nav }
+        data: { theme, tag, nav, showResteems }
       },
       (response) => location.reload())
   },

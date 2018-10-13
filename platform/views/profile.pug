@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  header
-  main.profile(data-theme=`${theme}` data-username=`${username}` data-pro=`${pro}` data-tag=`${tag}` data-nav=`${nav}`)
+  main.profile(
+    data-theme=`${theme}`
+    data-username=`${username}`
+    data-pro=`${pro}`
+    data-tag=`${tag}`
+    data-nav=`${nav}`
+    data-show-resteems=`${showResteems}`
+  )

@@ -8,6 +8,7 @@ import beta from './modules/finally-try'
 beta.init()
 
 const converter = new showdown.Converter({ tables: true })
+const showRestems = $('main').data('show-resteems')
 
 let page;
 
@@ -73,7 +74,7 @@ async function loadUserPosts(loadMore) {
     start_permlink: $('tr').last().data('permlink') }
   }
   steem.api.getDiscussionsByBlog(query, (err, result) => {
-    result = filterOutResteems(result, username)
+    result = showRestems ? result : filterOutResteems(result, username)
     let posts = TAG !== '' ? filterByTag(result, TAG) : result
     if (err === null) listPosts(posts)
   })
