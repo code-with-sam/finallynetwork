@@ -59,4 +59,12 @@ router.get('/@:username/:permlink', (req, res) => {
 });
 
 
+router.get('/@:username/resteem/@:author/:permlink', (req, res) => {
+  const username = req.params.username
+  const permlink = req.params.permlink
+  const author = req.params.author
+  templateController.renderResteem(username, author, permlink, res)
+});
+
+
 module.exports = router;

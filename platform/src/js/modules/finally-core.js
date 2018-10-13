@@ -47,9 +47,14 @@ let theme = {
     return $('main').hasClass('profile')
   },
 
+  isResteemdPost(){
+    return $('main').hasClass('resteem')
+  },
+
   async loadSinglePost(){
     finallycomments.init()
-    const postData = await steem.api.getContentAsync(theme.username, theme.permlink)
+    const author = theme.isResteemdPost() ? $('main').data('author') : theme.username
+    const postData = await steem.api.getContentAsync(author, theme.permlink)
     await theme.appendSingePostContent(postData)
     theme.appendSinglePostComments(postData)
   },
@@ -108,9 +113,8 @@ let theme = {
       start_permlink: theme.lastPermlink }
     }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
-      console.log(result)
-      let resultLessResteems = theme.filterOutResteems(result, theme.username)
-      let posts = theme.tag !== '' ? theme.filterByTag(resultLessResteems, theme.tag) : resultLessResteems
+      result = theme.showRestems ? result : theme.filterOutResteems(result, theme.username)
+      let posts = theme.tag !== '' ? theme.filterByTag(result, theme.tag) : result
       if (err === null) theme.loopUserPosts(loadMore, posts, result.length)
     })
   },

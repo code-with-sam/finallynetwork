@@ -205,9 +205,20 @@ a.nav__link:hover {
 .content {
   padding: 50px;
 }
+
 .content * {
   margin-bottom: 30px;
 }
+
+.content__title {
+  font-size: 2rem;
+}
+
+.content__subtitle {
+  font-size: 14px;
+  margin-bottom: 0
+}
+
 .content img {
   display: block;
   margin: 0 auto 20px auto;

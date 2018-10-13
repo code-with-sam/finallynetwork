@@ -33,3 +33,19 @@ module.exports.renderSingle = (username, permlink, res) => {
     });
   })
 }
+
+module.exports.renderResteem = (username, author, permlink, res) => {
+  User.findOne({user : username}, (err, result) => {
+    if (err) throw (err);
+    const THEME = result && result.theme ? result.theme : DEFAULT_THEME
+    const NAV = result && result.navigation ? result.navigation : []
+    res.render('resteem', {
+      username,
+      author,
+      permlink,
+      theme: THEME,
+      nav: NAV,
+      pro: accountController.accountStatus(result)
+    });
+  })
+}
