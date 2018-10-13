@@ -23,3 +23,8 @@ module.exports.subdomainCheck = (req, res, next) => {
   res.locals.hasSubDomain = hasSubDomain
   next();
 }
+
+module.exports.removeFirstCharIfHash = (string) => {
+  let charOne = string.substr(0, 1)
+  return charOne === '#' ?  string.substr(1, string.length) : string
+}

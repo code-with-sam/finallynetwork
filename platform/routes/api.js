@@ -9,11 +9,12 @@ router.post('/:username/create', (req, res) => {
   User.create({user: username, theme: theme}, (err, result) => res.json({result}))
 });
 
+
 router.post('/:username/update', util.isAuthorized, (req, res) => {
   const username = req.params.username
   const authorizedUser = req.session.steemconnect.name
   const theme = req.body.theme
-  const tag = req.body.tag
+  const tag = util.removeFirstCharIfHash(req.body.tag)
   const nav = req.body.nav.split(',').map(n => n.trim().toLowerCase())
   const showResteems = req.body.showResteems
 
