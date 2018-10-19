@@ -2,15 +2,7 @@
 .cache/
 node_modules/
 now.json
-dist/hckr-theme.js
-dist/hckr-theme.map
-dist/lens-theme.js
-dist/lens-theme.map
-dist/campfire-theme.js
-dist/campfire-theme.map
-dist/make-theme.js
-dist/make-theme.map
-dist/main.js
-dist/main.map
-dist/beta.js
-dist/beta.map
+dist/*
+
+# Except
+!dist/img/*

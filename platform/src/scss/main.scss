@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import "includes/beta";
+
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
-body {
-  /*font: 14px 'Varela Round', Helvetica, Arial, sans-serif;*/
-  font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
 
+body {
+  font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
   background-color: #f7fbfa;
   color: #7f8d8b;
 }
@@ -34,6 +32,7 @@ img {
   opacity: 0.2;
   z-index: 0;
 }
+
 .blog-2 {
   width: 80%;
   position: absolute;
@@ -106,9 +105,7 @@ header.header__landing {
   border-radius: 5px;
 }
 
-/*.header__spotlight--a {
-  transform: translate(0, -150px);
-}*/
+
 .header__spotlight--b {
 transform: translate(50px, -80px);
 }
@@ -290,16 +287,13 @@ section {
 }
 
 
-@media(max-width: 600px) {
+@media( max-width: 600px ) {
+
   .template__example,
   .section__split {
     width: 100%;
     padding: 30px;
     min-height: auto;
-
-  }
-  .section__split {
-
   }
   .section__split--off {
     display: none;

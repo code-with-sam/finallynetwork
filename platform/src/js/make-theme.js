@@ -1,6 +1,7 @@
+import "./../scss/make-theme.scss"
+
 import $ from 'jquery'
 import moment from 'moment'
-
 import f from './modules/finally-core'
 import util from './modules/finally-util'
 
@@ -26,9 +27,11 @@ const make = {
       ${navigationLinks}
     </nav>`
 
+    const avatar  = util.getSteemProfileImage(make.username)
+
     return `<header class="header">
       <section class="header__title">
-        <img class="header__avatar" src="https://steemitimages.com/150x150/${profile.profile_image}" width="120" height="120">
+        <img class="header__avatar" src="${avatar}" width="120" height="120">
       </section>
     </header>
     <section class="header__tagline"><h2>${profile.about}</h2></section>
