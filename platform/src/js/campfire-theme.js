@@ -1,3 +1,5 @@
+import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+import "./../scss/campfire-theme.scss";
 
 import steem from 'steem'
 import $ from 'jquery'
@@ -139,7 +141,11 @@ async function appendBeforeAfter(username, permlink){
   const beforePost = footerPostLinks.before ? `<div class="col-xs-12 col-sm-5 col-sm-offset-1">
                 <a href="/@${footerPostLinks.before.author}/${footerPostLinks.before.permlink}" class="read-more read-more--prev">
                     <section class="post">
-                        <h3 class="read-more__subtitle"><i class="fa fa-chevron-left"></i>Previous article</h3>
+                        <h3 class="read-more__subtitle">
+                        <i class="chevron chevron-left">
+                        <img src="/img/chevron-left.svg">
+
+                        </i>Previous article</h3>
                         <h2 class="read-more__title">${footerPostLinks.before.title}</h2>
                     </section>
                 </a>
@@ -147,7 +153,7 @@ async function appendBeforeAfter(username, permlink){
   const nextPost = footerPostLinks.after ? `<div class="col-xs-12 col-sm-5 ">
                 <a href="/@${footerPostLinks.after.author}/${footerPostLinks.after.permlink}" class="read-more read-more--next">
                     <section class="post">
-                        <h3 class="read-more__subtitle">Next article<i class="fa fa-chevron-right"></i></h3>
+                        <h3 class="read-more__subtitle">Next article<i class="chevron chevron-right"><img src="/img/chevron-right.svg"></i></h3>
                         <h2 class="read-more__title">${footerPostLinks.after.title}</h2>
                     </section>
                 </a>

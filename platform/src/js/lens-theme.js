@@ -1,3 +1,4 @@
+import "./../scss/lens-theme.scss"
 
 import steem from 'steem'
 import $ from 'jquery'

@@ -1,3 +1,6 @@
+import "../../node_modules/normalize.css/normalize.css";
+import "../scss/main.scss"
+
 import $ from 'jquery'
 import steem from 'steem'
 import showdown from 'showdown'

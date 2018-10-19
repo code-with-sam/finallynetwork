@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "parcel watch src/js/main.js  src/js/beta.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js ",
-    "build": "parcel build src/js/main.js src/js/beta.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js "
+    "dev": "parcel watch src/js/main.js  src/js/beta.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js --no-cache",
+    "build": "parcel build src/js/main.js src/js/beta.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
     "body-parser": "^1.18.3",
+    "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dompurify": "^1.0.8",
@@ -35,6 +36,7 @@
     "moment": "^2.22.2",
     "mongoose": "^5.2.14",
     "morgan": "^1.9.1",
+    "normalize.css": "^8.0.0",
     "parcel-bundler": "^1.8.1",
     "pug": "2.0.0-beta11",
     "sc2-sdk": "^1.1.0",

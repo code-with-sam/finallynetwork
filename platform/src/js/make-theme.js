@@ -1,3 +1,5 @@
+import "./../scss/make-theme.scss"
+
 import $ from 'jquery'
 import moment from 'moment'
 

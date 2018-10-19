@@ -4,17 +4,15 @@ html
     title= title
     if theme
       if theme == 'campfire'
-        link(rel='stylesheet', href=`/css/bootstrap.min.css`)
-      link(rel='stylesheet', href=`/css/${theme}-theme.css`)
-      link(rel='stylesheet', href=`/css/beta.css`)
+        link(rel='stylesheet', href="https://fonts.googleapis.com/css?family=Bitter:400,700|Open+Sans:400,700,300,300italic,400italic")
+      link(rel='stylesheet', href=`/${theme}-theme.css`)
     else
       link(rel="stylesheet" href="https://use.typekit.net/iqb0qug.css")
-      link(rel='stylesheet', href=`/css/main.css`)
+      link(rel='stylesheet', href=`/main.css`)
 
   body
     block content
     if theme
       script(src=`/${theme}-theme.js`)
-      script(src="/beta.js")
     else
       script(src="/main.js")

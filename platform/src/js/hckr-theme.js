@@ -1,3 +1,5 @@
+import "./../scss/hckr-theme.scss"
+
 import $ from 'jquery'
 import moment from 'moment'
 
