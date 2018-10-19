@@ -5,8 +5,8 @@ import showdown from 'showdown'
 import finallycomments from 'finallycomments'
 import purify from 'dompurify'
 import moment from 'moment'
-import striptags from 'striptags'
 import beta from './finally-try'
+import util from './finally-util'
 
 const POST_LIMIT = 15;
 const MARKDOWN_SETTINGS = {tables: true}
@@ -63,22 +63,12 @@ let theme = {
   },
 
   async appendSingePostContent(post) {
-    let html = theme.generateSinglePostHtml(post)
+    let html = util.generateSinglePostHtml(post)
     let userProfile = await theme.getSteemProfile(theme.username)
     let navigation = $('main').data('nav').split(',')
     if(USE_BACKGROUND_PHOTO) theme.setBackgroundData(userProfile)
     $('main').append(theme.blogHeaderTemplate(userProfile, navigation))
     $('main').append(theme.singlePageTemplate(post, html))
-  },
-
-  generateSinglePostHtml(post){
-    let converter = new showdown.Converter(MARKDOWN_SETTINGS);
-    let html = purify.sanitize(converter.makeHtml(post.body))
-    const urlInPRegex = /<p>(https?:\/\/[^\s]+)+(\.png|\.jpeg|\.gif|\.jpg)<\/p>/g;
-    const urlRegexImagesNonGif = /(https?:\/\/[^\s]+)+(\.png|\.jpeg|\.jpg)/g;
-    html = html.replace(urlInPRegex, url => '<img src="' + url.substr(3, url.length-4) + '">')
-    html = html.replace(urlRegexImagesNonGif, url => 'https://steemitimages.com/1500x1500/' + url )
-    return html
   },
 
   appendSinglePostComments(postData) {
@@ -116,21 +106,10 @@ let theme = {
       start_permlink: theme.lastPermlink }
     }
     steem.api.getDiscussionsByBlog(query, (err, result) => {
-      result = theme.showRestems ? result : theme.filterOutResteems(result, theme.username)
-      let posts = theme.tag !== '' ? theme.filterByTag(result, theme.tag) : result
+      result = theme.showRestems ? result : util.filterOutResteems(result, theme.username)
+      let posts = theme.tag !== '' ? util.filterByTag(result, theme.tag) : result
       if (err === null) theme.loopUserPosts(loadMore, posts, result.length)
     })
-  },
-
-  filterByTag(posts, tag){
-    return posts.filter(post => {
-      let tags = JSON.parse(post.json_metadata).tags
-      if( tags.includes(tag) || post.parent_permlink === tag ) return post
-    })
-  },
-
-  filterOutResteems(posts, username){
-    return posts.filter(post => post.author === username)
   },
 
   loopUserPosts(loadMore, posts, resultTotal){
@@ -145,8 +124,8 @@ let theme = {
 
   appendPostItem(post){
     const tags = theme.getPostTags(post)
-    const excerpt = theme.getPostExcerpt(post)
-    const featureImageSrc = theme.generatePostFeatureImage(post)
+    const excerpt = util.getPostExcerpt(post)
+    const featureImageSrc = util.generatePostFeatureImage(post)
     const template = theme.blogFeedItemTemplate(post, featureImageSrc, tags, excerpt)
     $('.blog-feed').append(template)
   },
@@ -156,31 +135,9 @@ let theme = {
     return tags.map( t => `<span class="tag">${t}</span>`).join(' ')
   },
 
-  getPostExcerpt(post){
-    const converter = new showdown.Converter(MARKDOWN_SETTINGS);
-    let placeholder = document.createElement('div');
-    placeholder.innerHTML = purify.sanitize(converter.makeHtml(post.body))
-    placeholder = placeholder.querySelector('p').innerHTML;
-    return striptags(placeholder)
-  },
-
-
-  generatePostFeatureImage(post){
-    let image
-    if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
-      const converter = new showdown.Converter(MARKDOWN_SETTINGS);
-      const placeholder = document.createElement('div');
-      placeholder.innerHTML = purify.sanitize(converter.makeHtml(post.body))
-      let image = placeholder.querySelector('img');
-      return image ? image.src : '';
-    } else {
-      image = JSON.parse(post.json_metadata).image[0]
-    }
-    return image;
-  },
-
   async getSteemProfile(username){
     let account = await steem.api.getAccountsAsync([username])
+    let details = JSON.parse(account[0].json_metadata).profile
     return JSON.parse(account[0].json_metadata).profile
   }
 

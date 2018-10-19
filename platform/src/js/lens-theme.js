@@ -7,6 +7,7 @@ import inview from 'jquery-inview'
 import finallycomments from 'finallycomments'
 import purify from 'dompurify'
 import beta from './modules/finally-try'
+import util from './modules/finally-util'
 beta.init()
 
 const Masonry = require('masonry-layout')
@@ -39,21 +40,10 @@ $('.overlay__bg').on('click', () => {
 function getBlog(query, initial, callback){
   steem.api.getDiscussionsByBlog(query, (err, result) => {
     if (err) console.log(err)
-    result = showRestems ? result : filterOutResteems(result, USERNAME)
-    let photos = TAG !== '' ? filterByTag(result, TAG) : result
+    result = showRestems ? result : util.filterOutResteems(result, USERNAME)
+    let photos = TAG !== '' ? util.filterByTag(result, TAG) : result
     displayImages(photos, initial, initial ? false : callback)
   });
-}
-
-function filterOutResteems(posts, username){
-  return posts.filter(post => post.author === username)
-}
-
-function filterByTag(posts, tag){
-  return posts.filter(post => {
-    let tags = JSON.parse(post.json_metadata).tags
-    if( tags.includes(tag) || post.parent_permlink === tag ) return post
-  })
 }
 
 function getMoreContent(){
@@ -84,27 +74,13 @@ function displayImages(result, initialLoad, callback){
   for (let i = 0; i < result.length ; i++) {
       let post = result[i];
 
-      var urlRegex = /(https?:\/\/[^\s]+)/g;
-      post.body = post.body.replace(urlRegex, (url) => {
-        let last = url.slice(-3)
-        if(last === 'jpg' || last === 'png' || last === 'peg' || last === 'gif')  {
-          return '<img src="' + url + '">';
-        } else {
-          return url
-        }
-      })
-      let image
-      if( typeof JSON.parse(post.json_metadata).image === 'undefined' ){
-        image = genImageInHTML(post.body)
-      } else {
-        image = JSON.parse(post.json_metadata).image[0]
-      }
+      let image = util.generatePostFeatureImage(post)
 
       allContent.push(post);
 
       let itemTemplate = `
         <div class="item hidden" data-url="${post.url}" data-permlink="${ post.permlink }">
-          <img class="item__image " src="https://steemitimages.com/480x768/${image}" onerror="this.src='http://placehold.it/500x500'">
+          <img class="item__image " src="https://steemitimages.com/480x768/${image}" onerror="this.src='http://placehold.it/500x500&text=error'">
           <div class="item__photographer">
             <span>@${post.author}</span>
           </div>
@@ -123,13 +99,6 @@ function displayImages(result, initialLoad, callback){
     items.shift()
     callback(items)
   }
-}
-
-function genImageInHTML(markdown){
-    let placeholder = document.createElement('div');
-    placeholder.innerHTML = converter.makeHtml(markdown)
-    let image = placeholder.querySelector('img');
-    return image ? image.src : ''
 }
 
 function checkImages(items){
@@ -176,30 +145,7 @@ function loadPost(item) {
   let rawPost = allContent.filter( x  => x.permlink === post.permlink )[0]
   let allCopy = allUsers.map(x => Object.assign({}, x))
   let user = allCopy.filter( x  => x.name === rawPost.author )[0]
-
-  let profileImage = 'img/default-user.jpg';
-
-  try {
-
-    if (user.json_metadata == '' ||
-    user === undefined ||
-    user.json_metadata == 'undefined' ||
-    user.json_metadata === undefined ) {
-      user.json_metadata = { profile_image : ''}
-    } else {
-      user.json_metadata = JSON.parse(user.json_metadata).profile
-    }
-
-    if (user.json_metadata === undefined){
-      user.json_metadata = { profile_image : ''}
-    }
-    profileImage = user.json_metadata.profile_image ? 'https://steemitimages.com/128x128/' + user.json_metadata.profile_image : '';
-
-  } catch(err){
-    console.log(err)
-  }
-
-  let html = purify.sanitize(converter.makeHtml(rawPost.body))
+  let html = util.generateSinglePostHtml(rawPost)
   html = html.replace('<p><br></p>', '')
   html = html.replace('<p></p>', '')
 
