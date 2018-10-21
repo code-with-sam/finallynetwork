@@ -1,8 +1,0 @@
-.env
-.cache/
-node_modules/
-now.json
-dist/*
-
-# Except
-!dist/img/*

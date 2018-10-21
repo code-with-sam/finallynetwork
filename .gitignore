@@ -1,1 +1,5 @@
+.env
 .cache/
+node_modules/
+now.json
+Dockerfile
