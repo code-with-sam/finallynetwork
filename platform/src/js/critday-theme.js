@@ -54,21 +54,19 @@ const critday = {
     const resteem = util.isResteem(critday.username, post) ? '' : `RESTEEM @${post.author} : `
     const link = util.getPostLink(critday.username, post)
 
-    return `<div class="feed-item">
-      <div class="feed-item__feature" style="background-image: url(https://steemitimages.com/500x500/${featureImageSrc})">
-        <div class="feed-item__overlay"></div>
-        <h2 class="feed-item__title">
-          <a class="feed-item__link" href="${link}">${resteem} ${post.title}</a>
-        </h2>
-      </div>
-    </div>`
+    return `<a class="feed-item" href="${link}">
+        <div class="feed-item__feature" style="background-image: url(https://steemitimages.com/500x500/${featureImageSrc})">
+          <div class="feed-item__overlay"></div>
+          <h2 class="feed-item__title">
+            <span class="feed-item__title-detail">${post.title}</span>
+          </h2>
+        </div>
+      </a>`
   },
 
   singlePageTemplate(post, html){
     const resteem = util.isResteem(critday.username, post) ? '' : `RESTEEM @${post.author} : `
     return `<a href="/@${critday.username}/" class="back-btn">⬅</a>
-    <h2>${resteem}${post.title}</h2>
-
     ${html}`
   }
 
