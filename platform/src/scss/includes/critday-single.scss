@@ -1,0 +1,48 @@
+.single {
+  max-width: 700px;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-right: #e8e7e7 1px solid;
+  animation: fadeIn 500ms ease-in;
+  animation-delay: 250ms;
+  z-index: 0;
+
+  @media (min-width: 750px){
+      padding-left: 50px;
+  }
+  > * {
+    margin-bottom: 20px;
+    z-index: 1;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+
+  p {
+    margin-bottom: 30px;
+    font-size: 17px;
+  }
+
+  a {
+    color: $brand-primary;
+    border-bottom: solid 2px $brand-primary;
+    text-decoration: none;
+  }
+  .back-btn {
+    border: none;
+    font-size: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  .blog-header {
+    padding-left: 0;
+  }
+
+}
+
+.post__comments {
+  margin-bottom: 50px;
+}

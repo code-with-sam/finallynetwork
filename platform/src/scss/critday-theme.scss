@@ -1,0 +1,32 @@
+* { box-sizing: border-box; }
+
+$text-colour: #4c5554;
+$brand-primary: #1fa896;
+$brand-secondary: black;
+
+body {
+  font-family: Helvetica Neue, Helvetica,Arial,sans-serif;
+  color: $text-colour;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+a {
+  color: $brand-primary;
+  border-bottom: solid 2px $brand-primary;
+  text-decoration: none;
+}
+
+@import "includes/critday-feed";
+@import "includes/critday-single";
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+  -o-animation-name: fadeIn;
+  animation-name: fadeIn; }

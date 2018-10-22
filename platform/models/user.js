@@ -8,7 +8,8 @@ var userSchema = new Schema({
     beta: { type: Boolean, default: false },
     tag: { type: String, default: '' },
     navigation: { type: [String], default: []},
-    showResteems: {type: Boolean, default: false}
+    showResteems: {type: Boolean, default: false},
+    data: {}
 });
 
 module.exports = mongoose.model('User', userSchema);
