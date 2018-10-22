@@ -1,3 +1,4 @@
+import "../../node_modules/normalize.css/normalize.css";
 import "./../scss/critday-theme.scss"
 
 import $ from 'jquery'
@@ -19,13 +20,33 @@ const critday = {
   },
 
   blogHeaderTemplate(profile, navigation){
-    return `<header><h1>${critday.username} Portfolio</h1></header>`
+    return `<header class="blog-header">
+      <h1 class="blog-header__title">${critday.username} Portfolio.</h1>
+    </header>`
   },
 
   blogFeedTemplate(){
+    let data = $('main').data('theme-data')
+
       return `
       <section class="blog-feed"></section>
-      <section><a class="load-more-posts" href="#">Load More Posts</a></section>
+      <section class="details">
+        <h3 class="details__item">
+          <span class="details__title">Name</span> ${data.name}</h3>
+        <h3 class="details__item">
+          <span class="details__title">Instagram</span> <a href="https://instagram.com/@${data.instagram}">${data.instagram}</a></h3>
+        <h3 class="details__item">
+          <span class="details__title">Course-year</span> ${data['course-year']}</h3>
+        <h3 class="details__item">
+          <span class="details__title">Project</span> ${data['project-name']}</h3>
+        <h3 class="details__item">
+          <span class="details__title">Site</span> ${data.site}</h3>
+        <h3 class="details__item">
+          <span class="details__title">University</span> ${data['university-name']}</h3>
+        <h3 class="details__item">
+          <span class="details__title">Tutor</span> ${data.tutor}</h3>
+        <p class="details__item">${data.bio}</p>
+      </section>
       `
   },
 
@@ -34,8 +55,12 @@ const critday = {
     const link = util.getPostLink(critday.username, post)
 
     return `<div class="feed-item">
-      <div class="feed-item__feature" style="background-image: url(https://steemitimages.com/500x500/${featureImageSrc})"></div>
-      <h2><a href="${link}">${resteem} ${post.title}</a></h2>
+      <div class="feed-item__feature" style="background-image: url(https://steemitimages.com/500x500/${featureImageSrc})">
+        <div class="feed-item__overlay"></div>
+        <h2 class="feed-item__title">
+          <a class="feed-item__link" href="${link}">${resteem} ${post.title}</a>
+        </h2>
+      </div>
     </div>`
   },
 
