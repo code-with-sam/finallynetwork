@@ -7,6 +7,8 @@ import showdown from 'showdown'
 import purify from 'dompurify'
 import finallycomments from 'finallycomments'
 
+import dashboard from './modules/finally-dashboard'
+
 const app = {
   init() {
     this.UiActions()
@@ -15,20 +17,14 @@ const app = {
 
   pageSpecificInit(){
     const page = $('main').attr('class').split(/\s+/)
-    if( page.includes('landing') ) this.loadNewsLinks()
-    if( page.includes('blog') ) this.loadRecentPosts()
-    if( page.includes('dashboard') ) this.initDashboard()
+    if( page.includes('landing') || page.includes('blog')  ) this.loadNewsLinks()
+    if( page.includes('blog-single') ) this.loadRecentPosts()
+    if( page.includes('dashboard') ) dashboard.init()
   },
 
   UiActions() {
     $('.header__beta').on('click', () => $('.modal').fadeIn() )
     $('.modal .submit').on('click', (e) => this.showBetaModal(e) )
-    $('.dashboard__save').on('click', (e) => this.updatetheme(e) )
-    $('.dashboard__button--unlock').on('click', (e) => this.unlockAction(e) );
-  },
-
-  initDashboard(){
-    this.showSelectedThemeInDropdown()
   },
 
   showBetaModal(e){
@@ -42,27 +38,6 @@ const app = {
         },
         (response) =>  window.location.href = `/@${username}`
       )
-
-  },
-
-  showSelectedThemeInDropdown(){
-    const theme = $('.dashboard').data('theme')
-    $(`option[value="${theme}"]`).prop('selected','selected')
-  },
-
-  updatetheme(e) {
-    const theme = $('.dashboard__theme-select :selected').val();
-    const tag = $('.dashboard__tag-select').val();
-    const nav = $('.dashboard__nav-select').val();
-    const showResteems = $('.dashboard__resteem-checkbox').is(':checked')
-    const username = $('.dashboard').data('username')
-    e.preventDefault()
-    $.post({
-        url: `/api/${username}/update`,
-        dataType: 'json',
-        data: { theme, tag, nav, showResteems }
-      },
-      (response) => location.reload())
   },
 
   loadNewsLinks(){
@@ -77,7 +52,10 @@ const app = {
   },
 
   displayNewsLink(post) {
-    const template = `<li><a class="landing__news__li" href="/blog/${post.permlink}"> ${post.title}</a></li>`
+    const template = `
+    <li class="landing__news__li">
+      <a class="landing__news__link" href="/blog/${post.permlink}"> ${post.title}</a>
+    </li>`
     $('.landing__news ul').append(template)
   },
 

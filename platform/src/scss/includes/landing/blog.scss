@@ -10,6 +10,7 @@
   background: rgba(29, 230, 225, 0.6);
   padding: 7px 14px;
 }
+
 .landing__news__link {
   font-size: 18px;
   color: #fff;
@@ -22,22 +23,13 @@
   padding: 30px;
 
   @media(min-width: 800px) {
-    padding: 50px 15px 100px;
+    padding: 50px 0 100px;
   }
 }
 
-
-.blog h1,
-.blog h2,
-.blog h3,
-.blog h4,
-.blog p,
-.blog img,
-.blog ul {
+.blog-single > * {
   margin-bottom: 20px;
 }
-
-
 
 .blog-single {
   max-width: 700px;

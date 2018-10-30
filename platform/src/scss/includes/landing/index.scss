@@ -44,26 +44,20 @@
 .header__login {
     color: #676767;
     background: rgba(29, 230, 225, 0.21);
-    border-color: transparent;
-    border-radius: 6.1875rem;
+    border-radius: 6rem;
     transition: all .2s ease-in-out;
-    min-width: 9.6875rem;
-    margin-bottom: 0.5rem !important;
+    min-width: 9rem;
     margin-right: 15px;
     cursor: pointer;
     display: inline-block;
     font-weight: 600;
     text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
     border: 1px solid transparent;
     padding: 0.75rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    text-transform: capitalize;
 
     &:hover {
       transform: translateY(-3px);
@@ -149,7 +143,7 @@
 }
 
 .header__spotlight--d {
-transform: translate(-30%, -45%);
+  transform: translate(-30%, -45%);
 }
 
 section {
@@ -160,7 +154,6 @@ section {
 
 .section__title {
   color: #333;
-  font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 16px;
   display: inline-block;
@@ -197,13 +190,12 @@ section {
   }
 }
 
-
-
 .section--beta {
   padding: 50px 0;
   background-color: #e1f3fc;
   text-align: center;
 }
+
 .section__content .beta--access {
   text-align: center;
   line-height: 1;
@@ -252,9 +244,6 @@ margin-bottom: 50px;
   padding: 13px 0;
   border-bottom: dotted #d9d9d9 2px;
 }
-.section--pro li:before {
-}
-
 
 .section--pro .divider {
   margin: 30px;
@@ -285,6 +274,7 @@ margin-bottom: 50px;
 .modal {
   display: none;
 }
+
 .modal__bg {
   position: fixed;
   top: 0;
@@ -313,13 +303,17 @@ margin-bottom: 50px;
   box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
   z-index: 1;
 }
+
+.modal__theme-select {
+  width: 100%;
+}
 .modal input,
 .modal button {
   display: block;
   width: 100%;
   margin: 20px 0;
-  padding: 20px;
-  text-align: center;
+  padding: 7px;
+  text-align: left;
   border-radius: 5px;
   border: solid 1px #ccc;
   font-size: 15px;
@@ -327,17 +321,30 @@ margin-bottom: 50px;
 }
 
 .modal button  {
-  background: #333;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 500;
-  font-size: 14px;
+  color: #676767;
+  background: rgba(29, 230, 225, 0.21);
+  border-radius: 6rem;
+  transition: all .2s ease-in-out;
+  min-width: 9rem;
+  margin-right: 15px;
   cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-3px);
+    color: #fff;
+    background: rgba(29, 230, 225, 0.6);
+    box-shadow: 0 4px 17px rgba(29, 230, 225, 0.35);
+  }
 }
-
-
-
 
 .section__explainer {
   @extend .cf;
