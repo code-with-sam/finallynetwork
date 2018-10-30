@@ -1,7 +1,7 @@
 {
   "name": "finallynetwork",
   "version": "0.1.0",
-  "description": "",
+  "description": "website builder for the STEEM blockchain",
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
@@ -34,7 +34,7 @@
     "masonry-layout": "^4.2.2",
     "modules": "^0.4.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.3.4",
+    "mongoose": "^5.3.7",
     "morgan": "^1.9.1",
     "normalize.css": "^8.0.0",
     "parcel-bundler": "^1.10.3",
