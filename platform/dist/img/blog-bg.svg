@@ -3,8 +3,20 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
 <style type="text/css">
-	.st0{opacity:0.29;fill:#48FFC6;}
+	.st0{opacity:0.29;fill:#48FFC6;enable-background:new    ;}
+	.st1{opacity:0.3;fill:#48FFC6;}
 </style>
-<path fill="#48FFC6" class="st0" d="M285.3,94C212.2,72.1,164.4,23.9,111,66.9C68.8,100.9,4.7,157.2,68.6,250c36.9,53.5-47.8,189.2,72.9,214.2
+<path class="st0" d="M285.3,94C212.2,72.1,164.4,23.9,111,66.9C68.8,100.9,4.7,157.2,68.6,250c36.9,53.5-47.8,189.2,72.9,214.2
 	c124.3,25.7,129.9-79.9,194.8-64.7c157.9,36.9,141.6-263.3,114.9-296.4C411.7,53.8,341.3,110.9,285.3,94z"/>
+<circle class="st1" cx="453.2" cy="66.6" r="11.8"/>
+<circle class="st1" cx="303.4" cy="62.9" r="11.8"/>
+<circle class="st1" cx="243.3" cy="54.9" r="5.9"/>
+<circle class="st1" cx="324.3" cy="26.8" r="5.9"/>
+<circle class="st1" cx="41.6" cy="258.9" r="11.8"/>
+<circle class="st1" cx="60" cy="409.2" r="11.8"/>
+<circle class="st1" cx="24" cy="119" r="5.9"/>
+<circle class="st1" cx="29.8" cy="164.1" r="5.9"/>
+<circle class="st1" cx="29.8" cy="229.2" r="5.9"/>
+<circle class="st1" cx="60" cy="435.5" r="5.9"/>
+<circle class="st1" cx="468.4" cy="359.8" r="11.8"/>
 </svg>

@@ -30,8 +30,16 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
     })
 });
 
+router.get('/blog', (req, res) => {
+  res.render('blog', { title: 'Finally Blog' } );
+});
+
 router.get('/blog/:permlink', (req, res) => {
   res.render('blog-post', { title: 'Finally Blog', permlink : req.params.permlink} );
+});
+
+router.get('/templates', (req, res) => {
+  res.render('templates', { title: 'Finally Templates' } );
 });
 
 router.get('/@:username', (req, res) => {

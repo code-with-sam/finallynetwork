@@ -2,5 +2,5 @@ extends layout
 
 block content
   header.blog
-    a(href="/"): img(src="/img/finally-brand.png").finally-brand
-  main.blog(data-permlink=`${permlink}`)
+    include partials/nav
+  main.blog-single(data-permlink=`${permlink}`)

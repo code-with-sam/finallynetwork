@@ -1,0 +1,105 @@
+extends layout
+
+block content
+  header.header__templates
+    include partials/nav
+    h1.header__title.header__title--alt Choose From 5 Templates
+
+
+
+  main
+    section.cf.section__split__container
+      .section__split.section__split--alt
+        h2 Lens
+        p A place for your photography to shine. Showcase your photos on the STEEM blockchain. Works well for accounts with many posts where the photo is the main content.
+
+        ul
+          li Photography
+          li Grpahic Design
+          li Artwork
+
+
+      .section__split.section__split--off
+        img(src="/img/browser-lens.png").theme-showcase.theme-showcase--1
+
+    section.cf.section__split__container
+      .section__split.section__split--off
+        img(src="/img/browser-critday.png").theme-showcase.theme-showcase--1
+
+
+      .section__split.section__split--alt
+        h2 Critday - Collaboration
+        p Portfolio specifically designed for Architecture students to showcase their project work. #[a(href="/blog/finallynetworkcritdaycollaborationthedesign-steem-basedportfolioforarchitecturestudents-v67nufiv4l") Read more about the collaboration].
+
+        ul
+          li Portfolio
+          li Student
+          li Architecture
+          li Design
+
+
+    section.cf.section__split__container
+      .section__split.section__split--alt
+        h2 Campfire
+        p Showcase adventures and travel in a bold captivating format. A minimal design with a strong focus on written content.
+
+        p Works best with medium - long form content and high quality images.
+
+        ul
+          li Travel
+          li Food
+          li Stories
+
+
+      .section__split.section__split--off
+        img(src="/img/browser-campfire.png").theme-showcase.theme-showcase--1
+
+    section.cf.section__split__container
+      .section__split.section__split--off
+        img(src="/img/browser-hckr.png").theme-showcase.theme-showcase--1
+
+
+      .section__split.section__split--alt
+        h2 HCKR
+        p Barebones design approach. Works best for technical blogs with code excerpts.
+
+        ul
+          li Tech
+          li code
+
+
+    section.cf.section__split__container
+      .section__split.section__split--alt
+        h2 MAKE - Collaboration
+        p Purpose built for #[a(href="https://steemit.com/@dayleeo") @dayleeo] to transition from Wordpress to a blockchain first bloging approach.
+        ul
+          li Recipes
+          li DIY
+          li Crafts
+          li lifestyle
+
+
+      .section__split.section__split--off
+        img(src="/img/browser-make.png").theme-showcase.theme-showcase--1
+
+    section.section--pro
+      .section__content
+        h2 Help Support Finally network
+
+        p Finally is aiming to support content creators and create a system to make Steem blockchain content shine. If you are interested in seeing this project come to life and can spare Steem delegation please delegate to @finallynetwork. SP on FinallyNetwork will be used to support users of the platform who create meaningful content. Any supporters who delegate over 300SP will automatically get Pro features when available.
+
+        a.button(href="https://steemconnect.com/sign/delegateVestingShares?delegator=&delegatee=finallynetwork&vesting_shares=500%20SP" target="_blank") Delegate To FinallyNetwork
+
+    section.section--soon
+      .section__content
+        h2 Coming soon
+        div.ideas
+          h3 More Templates
+          p Next - D.tube ready theme
+        div.ideas
+          h3 Customisation Options
+          p Pro accounts will be able to edit default settings
+
+        div.ideas
+          h3 Extra Pages
+          p Add single pages to themes e.g about/contact
