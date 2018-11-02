@@ -41,7 +41,9 @@
   border: solid 1px #ececec;
   display: flex;
 }
-
+.custom__settings {
+  display: none; 
+}
 .dashboard__block--save {
   border: none;
   background: transparent;

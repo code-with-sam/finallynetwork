@@ -10,11 +10,17 @@ const dashboard = {
   UiActions() {
     $('.dashboard__save').on('click', (e) => this.updatetheme(e) )
     $('.dashboard__button--unlock').on('click', (e) => this.unlockAction(e) );
+    $('.dashboard__theme-select').change( (e) => this.enablethemeSettings(e) );
   },
 
   showSelectedThemeInDropdown(){
     const theme = $('.dashboard').data('theme')
     $(`option[value="${theme}"]`).prop('selected','selected')
+  },
+
+  enablethemeSettings() {
+    const theme = $('.dashboard__theme-select').find(":selected").val()
+    $(`.custom__settings--${theme}-theme`).show();
   },
 
   updatetheme(e) {
