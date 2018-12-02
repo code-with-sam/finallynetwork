@@ -32,20 +32,20 @@ const critday = {
       <section class="blog-feed"></section>
       <section class="details">
         <h3 class="details__item">
-          <span class="details__title">Name</span> ${data.name}</h3>
+          <span class="details__title">Name</span> ${data.critdayName}</h3>
         <h3 class="details__item">
-          <span class="details__title">Instagram</span> <a href="https://instagram.com/@${data.instagram}">${data.instagram}</a></h3>
+          <span class="details__title">Instagram</span> <a href="https://instagram.com/@${data.critdayInstagram}">@${data.critdayInstagram}</a></h3>
         <h3 class="details__item">
-          <span class="details__title">Course-year</span> ${data['course-year']}</h3>
+          <span class="details__title">Course-year</span> ${data.critdayCourse}</h3>
         <h3 class="details__item">
-          <span class="details__title">Project</span> ${data['project-name']}</h3>
+          <span class="details__title">Project</span> ${data.critdayProject}</h3>
         <h3 class="details__item">
-          <span class="details__title">Site</span> ${data.site}</h3>
+          <span class="details__title">Site</span> ${data.critdaySite}</h3>
         <h3 class="details__item">
-          <span class="details__title">University</span> ${data['university-name']}</h3>
+          <span class="details__title">University</span> ${data.critdayUniversity}</h3>
         <h3 class="details__item">
-          <span class="details__title">Tutor</span> ${data.tutor}</h3>
-        <p class="details__item">${data.bio}</p>
+          <span class="details__title">Tutor</span> ${data.critdayTutor}</h3>
+        <p class="details__item">${data.critdayBio}</p>
       </section>
       `
   },
