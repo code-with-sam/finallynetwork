@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 module.exports.init = () => {
   dashboard.UiActions()
-  dashboard.showSelectedThemeInDropdown()
+  dashboard.showCurrentThemeInDashboardSettings()
 }
 
 const dashboard = {
@@ -13,13 +13,15 @@ const dashboard = {
     $('.dashboard__theme-select').change( (e) => this.enablethemeSettings(e) );
   },
 
-  showSelectedThemeInDropdown(){
+  showCurrentThemeInDashboardSettings(){
     const theme = $('.dashboard').data('theme')
     $(`option[value="${theme}"]`).prop('selected','selected')
+    $(`.custom__settings--${theme}-theme`).show();
   },
 
   enablethemeSettings() {
     const theme = $('.dashboard__theme-select').find(":selected").val()
+    console.log(theme, `.custom__settings--${theme}-theme`)
     $(`.custom__settings--${theme}-theme`).show();
   },
 
