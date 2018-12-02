@@ -28,3 +28,16 @@ module.exports.removeFirstCharIfHash = (string) => {
   let charOne = string.substr(0, 1)
   return charOne === '#' ?  string.substr(1, string.length) : string
 }
+
+module.exports.DEFAULTUSERDATA = () => {
+  return {
+    critdayName: 'default',
+    critdayInstagram: '',
+    critdayCourse: '',
+    critdayProject: '',
+    critdaySite: '',
+    critdayUniversity: '',
+    critdaytutor: '',
+    critdaybio: ''
+  }
+}

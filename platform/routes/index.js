@@ -20,13 +20,18 @@ router.get('/dashboard', util.isAuthenticated, (req, res) => {
       const THEME = !result ? false : result.theme
       const TAG = result.tag ? result.tag : ''
       const NAV = result.navigation ? result.navigation : []
+      const USERDATA = result.data ? result.data : util.DEFAULTUSERDATA
+
+      console.log('RESULT: ', result)
       res.render('dashboard', {
         username,
         selectedTheme : THEME,
         tag: TAG,
         navigation: NAV.join(','),
         pro: accountController.accountStatus(result),
-        showResteems: result.showResteems  } );
+        showResteems: result.showResteems,
+        data: USERDATA
+        } );
     })
 });
 
