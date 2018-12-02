@@ -47,6 +47,45 @@ block content
             .setting__value
               input.dashboard__input.dashboard__nav-select(type="text" value=`${navigation}` placeholder="e.g photography, travel")
 
+      .custom__settings.custom__settings--critday-theme
+        h3.setting__title CritDay Theme Settings
+        section.dashboard__block
+          .setting__items
+            .setting__item
+              h3 Name
+            .setting__item
+              h3 Instagram
+            .setting__item
+              h3 Course
+            .setting__item
+              h3 Project
+            .setting__item
+              h3 Site
+            .setting__item
+              h3 University
+            .setting__item
+              h3 Tutor
+            .setting__item
+              h3 Bio
+
+          .setting__values
+            .setting__value
+              input.dashboard__input.dashboard__critday-name(type="text" value=`${data.critdayName}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-instagram(type="text" value=`${data.critdayInstagram}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-course(type="text" value=`${data.critdayCourse}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-project(type="text" value=`${data.critdayProject}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-site(type="text" value=`${data.critdaySite}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-university(type="text" value=`${data.critdayUniversity}` placeholder="")
+            .setting__value
+              input.dashboard__input.dashboard__critday-tutor(type="text" value=`${data.critdayTutor}` placeholder="")
+            .setting__value
+              textarea.dashboard__input.dashboard__critday-bio(type="text" placeholder="")= data.critdayBio
+
       section.dashboard__block.dashboard__block--save
             span.dashboard__button.dashboard__save save
 
