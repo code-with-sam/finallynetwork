@@ -67,6 +67,10 @@
     font-size: 16px;
     margin: 0;
   }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
 }
 
 .setting__values {
@@ -78,6 +82,10 @@
   padding: 20px;
   border-bottom: solid #ddd 1px;
   max-height: 66px;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
 }
 
 .dashboard__button {
