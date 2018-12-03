@@ -47,6 +47,10 @@ router.get('/templates', (req, res) => {
   res.render('templates', { title: 'Finally Templates' } );
 });
 
+router.get('/collaborations', (req, res) => {
+  res.render('collaborations', { title: 'Finally Collaborations' } );
+});
+
 router.get('/@:username', (req, res) => {
   const username = req.params.username
   if(res.locals.hasSubDomain) {
