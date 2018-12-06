@@ -19,13 +19,13 @@ const motion = {
   },
 
   blogHeaderTemplate(profile, navigation){
-    return `<header><h1>${motion.username}</h1></header>`
+    return `<header><h1 class="blog-title">@${motion.username}</h1></header>`
   },
 
   blogFeedTemplate(){
       return `
       <section class="blog-feed"></section>
-      <section><a class="load-more-posts" href="#">Load More Posts</a></section>
+      <section><a class="load-more-posts" href="#">More Videos</a></section>
       `
   },
 
@@ -34,8 +34,10 @@ const motion = {
     const link = util.getPostLink(motion.username, post)
 
     return `<div class="blog-feed__item">
-      <h2><a href="${link}">${resteem} ${post.title}</a></h2>
-      <h3>${moment(post.created).format("DD/MM/YY")  } | comments: ${post.children} | votes: ${post.net_votes}</h3>
+        <div class="blog-feed__item-feature" style="background-image: url(${featureImageSrc});">
+           <img class="item-feature__play" src="/img/motion-play.png">
+        </div>
+        <h2 class="blog-feed__item-title">${post.title}</h2> 
     </div>`
   },
 
