@@ -73,6 +73,7 @@ const motion = {
     if (window.innerWidth <= 850) motion.setVideoDimentions()
 
     $('#video-frame').on('load', () => {
+      if ($('#video-frame').attr('src') === '') return
       $('.overlay-bg').fadeIn()
       setTimeout(()=> {
         $('.overlay').fadeIn()
@@ -93,6 +94,11 @@ const motion = {
   themeActions() {
     $('main').append(motion.additionalTemplate())
     motion.setVideoFrameActions()
+
+    $('body').on('click', '.overlay-bg', (e) => {
+      $('.overlay, .overlay-bg').fadeOut()
+      $('#video-frame').attr('src', '')
+    })
   }
 
 }
