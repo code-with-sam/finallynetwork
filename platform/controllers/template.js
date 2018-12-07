@@ -7,7 +7,7 @@ module.exports.renderProfile = (username, res) => {
     if (result === null ) res.render('profile', { username, theme : DEFAULT_THEME, tag: '', nav : [], pro :false })
     if (err) throw (err);
 
-    let themeData = result.theme === 'critday' ? result.data : ''
+    let themeData = result.data ? result.data : ''
 
     res.render('profile', {
       username,

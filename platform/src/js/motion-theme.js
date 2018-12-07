@@ -9,6 +9,7 @@ import util from './modules/finally-util'
 
 const motion = {
   username: $('main').data('username'),
+  themeData: $('main').data('theme-data'),
 
   init() {
     f.init(
@@ -69,54 +70,53 @@ const motion = {
       $('#video-frame').height( ((window.innerWidth * 0.85)/16)*9 )
     }
   },
-
-  setVideoFrameActions(){
-    if (window.innerWidth <= 850) motion.setVideoDimentions()
-
-    $('#video-frame').on('load', () => {
-      if ($('#video-frame').attr('src') === '') return
-      $('.overlay-container').fadeIn()
-      setTimeout(()=> {
-        $('.overlay').fadeIn()
-      }, 400)
-    });
-
-    $( window ).resize(function() {
-      motion.setVideoDimentions()
-    });
-
-    $('body').on('click', '.blog-feed__item-feature', (e) => {
-      const permlink = $(e.currentTarget).data('video')
-      const username = $(e.currentTarget).data('username')
-      const category = $(e.currentTarget).data('category')
-      $('#video-frame').attr('src', `https://emb.d.tube/#!/${username}/${permlink}/true`)
-      $('.overlay').width($('#video-frame').width())
- 
+  enableOverlay(e) {
+    const permlink = $(e.currentTarget).data('video')
+    const username = $(e.currentTarget).data('username')
+    const category = $(e.currentTarget).data('category')
+    $('#video-frame').attr('src', `https://emb.d.tube/#!/${username}/${permlink}/true`)
+    $('.overlay').width($('#video-frame').width())
+    
+    if(motion.themeData.motionShowComments){
       $('.overlay').append(
-      `<section class="post__comments"
-      data-id="https://steemit.com/${category}/@${username}/${permlink}"
-      data-reputation="false"
-      data-values="false"
-      data-profile="false"
-      data-generated="false"
-      data-beneficiary="finallycomments"
-      data-beneficiaryWeight="25"
-      data-guestComments="false">
-      </section>`)
-      
-      finallycomments.loadEmbed('.post__comments')
-    })
-  },  
+        `<section class="post__comments"
+        data-id="https://steemit.com/${category}/@${username}/${permlink}"
+        data-reputation="false"
+        data-values="false"
+        data-profile="false"
+        data-generated="false"
+        data-beneficiary="finallycomments"
+        data-beneficiaryWeight="25"
+        data-guestComments="false">
+        </section>`)
+        
+        finallycomments.loadEmbed('.post__comments')
+    }
+  },
+  clearOverlay(){
+    $('.overlay, .overlay-bg, .overlay-container').fadeOut()
+    $('#video-frame').attr('src', '')
+    $('post__comments').remove()
+  },
+  videoOnLoad() {
+    if ($('#video-frame').attr('src') === '') return
+    $('.overlay-container').fadeIn()
+    setTimeout(()=> {
+      $('.overlay').fadeIn()
+    }, 400)
+  },
 
   themeActions() {
+    // add non standard templates (those not used on every theme) to the HTML 
     $('main').append(motion.additionalTemplate())
-    motion.setVideoFrameActions()
-    finallycomments.init()
-
-    $('body').on('click', '.overlay-bg', (e) => {
-      $('.overlay, .overlay-bg, .overlay-container').fadeOut()
-      $('#video-frame').attr('src', '')
-    })
+    //init actions related to non standard html
+    if (window.innerWidth <= 850) motion.setVideoDimentions()
+    $('#video-frame').on('load', () => motion.videoOnLoad());
+    $( window ).resize(() => motion.setVideoDimentions());
+    $('body').on('click', '.overlay-bg', (e) => motion.clearOverlay() )
+    $('body').on('click', '.blog-feed__item-feature', (e) => motion.enableOverlay(e))
+    // include finally comments if setting in dashboard is enabled
+    if(motion.themeData.motionShowComments) finallycomments.init()
   }
 
 }
