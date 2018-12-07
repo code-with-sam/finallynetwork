@@ -2,6 +2,7 @@ import "./../scss/motion-theme.scss"
 
 import $ from 'jquery'
 import moment from 'moment'
+import finallycomments from 'finallycomments'
 
 import f from './modules/finally-core'
 import util from './modules/finally-util'
@@ -33,12 +34,12 @@ const motion = {
     const resteem = util.isResteem(motion.username, post) ? '' : `RESTEEM @${post.author} : `
     const link = util.getPostLink(motion.username, post)
     const dtubePermlink = JSON.parse(post.json_metadata).video.info.permlink
-
     return `<div class="blog-feed__item">
         <div class="blog-feed__item-feature"
           style="background-image: url(${featureImageSrc});"
           data-video="${dtubePermlink}"
-          data-username="${post.author}">
+          data-username="${post.author}"
+          data-category="${post.parent_permlink}">
            <img class="item-feature__play" src="/img/motion-play.png">
         </div>
         <h2 class="blog-feed__item-title">${post.title}</h2> 
@@ -54,7 +55,7 @@ const motion = {
   },
 
   additionalTemplate(){
-    return `<section>
+    return `<section class="overlay-container">
       <div class="overlay-bg"></div>
       <div class="overlay">
         <iframe id="video-frame" width="854" height="480" src="" allowfullscreen></iframe>
@@ -74,7 +75,7 @@ const motion = {
 
     $('#video-frame').on('load', () => {
       if ($('#video-frame').attr('src') === '') return
-      $('.overlay-bg').fadeIn()
+      $('.overlay-container').fadeIn()
       setTimeout(()=> {
         $('.overlay').fadeIn()
       }, 400)
@@ -87,16 +88,33 @@ const motion = {
     $('body').on('click', '.blog-feed__item-feature', (e) => {
       const permlink = $(e.currentTarget).data('video')
       const username = $(e.currentTarget).data('username')
+      const category = $(e.currentTarget).data('category')
       $('#video-frame').attr('src', `https://emb.d.tube/#!/${username}/${permlink}/true`)
+      $('.overlay').width($('#video-frame').width())
+ 
+      $('.overlay').append(
+      `<section class="post__comments"
+      data-id="https://steemit.com/${category}/@${username}/${permlink}"
+      data-reputation="false"
+      data-values="false"
+      data-profile="false"
+      data-generated="false"
+      data-beneficiary="finallycomments"
+      data-beneficiaryWeight="25"
+      data-guestComments="false">
+      </section>`)
+      
+      finallycomments.loadEmbed('.post__comments')
     })
-  },
+  },  
 
   themeActions() {
     $('main').append(motion.additionalTemplate())
     motion.setVideoFrameActions()
+    finallycomments.init()
 
     $('body').on('click', '.overlay-bg', (e) => {
-      $('.overlay, .overlay-bg').fadeOut()
+      $('.overlay, .overlay-bg, .overlay-container').fadeOut()
       $('#video-frame').attr('src', '')
     })
   }
