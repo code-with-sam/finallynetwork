@@ -62,8 +62,15 @@ const motion = {
     </section>`
   },
 
-  themeActions() {
-    $('main').append(motion.additionalTemplate())
+  setVideoDimentions(){
+    if (window.innerWidth <= 850) {
+      $('#video-frame').width(window.innerWidth * 0.85)
+      $('#video-frame').height( ((window.innerWidth * 0.85)/16)*9 )
+    }
+  },
+
+  setVideoFrameActions(){
+    if (window.innerWidth <= 850) motion.setVideoDimentions()
 
     $('#video-frame').on('load', () => {
       $('.overlay-bg').fadeIn()
@@ -72,13 +79,21 @@ const motion = {
       }, 400)
     });
 
+    $( window ).resize(function() {
+      motion.setVideoDimentions()
+    });
+
     $('body').on('click', '.blog-feed__item-feature', (e) => {
       const permlink = $(e.currentTarget).data('video')
       const username = $(e.currentTarget).data('username')
       $('#video-frame').attr('src', `https://emb.d.tube/#!/${username}/${permlink}/true`)
     })
-  }
+  },
 
+  themeActions() {
+    $('main').append(motion.additionalTemplate())
+    motion.setVideoFrameActions()
+  }
 
 }
 
