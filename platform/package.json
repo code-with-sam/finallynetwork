@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "parcel watch src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js src/js/critday-theme.js --log-level 4",
-    "build": "parcel build src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js src/js/critday-theme.js --log-level 4"
+    "dev": "parcel watch src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js src/js/critday-theme.js src/js/motion-theme.js  --log-level 4",
+    "build": "parcel build src/js/main.js src/js/hckr-theme.js src/js/lens-theme.js src/js/campfire-theme.js src/js/make-theme.js src/js/critday-theme.js src/js/motion-theme.js  --log-level 4"
   },
   "repository": {
     "type": "git",

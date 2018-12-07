@@ -32,7 +32,8 @@ router.post('/:username/update', util.isAuthorized, (req, res) => {
           critdaySite: req.body.critdaySite,
           critdayUniversity: req.body.critdayUniversity,
           critdayTutor: req.body.critdayTutor,
-          critdayBio: req.body.critdayBio
+          critdayBio: req.body.critdayBio,
+          motionShowComments: req.body.motionShowComments
         }
     }, {upsert: true}, (result) => res.json({result}));
   } else {

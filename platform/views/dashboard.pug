@@ -30,6 +30,7 @@ block content
               option(value="campfire") Campfire
               option(value="make") Make
               option(value="critday") Critday
+              option(value="motion") Motion
 
           .setting__value
             input.dashboard__resteem-checkbox(type="checkbox" name="resteem" checked=(showResteems))
@@ -46,6 +47,16 @@ block content
           .setting__values
             .setting__value
               input.dashboard__input.dashboard__nav-select(type="text" value=`${navigation}` placeholder="e.g photography, travel")
+            
+      .custom__settings.custom__settings--motion-theme
+        h3.setting__title Motion Theme Settings
+        section.dashboard__block
+          .setting__items
+            .setting__item
+              h3(title="Emable Comments flag") Enable Comments
+          .setting__values
+            .setting__value
+              input.dashboard__comments-checkbox(type="checkbox" name="comments" checked=(data.motionShowComments))
 
       .custom__settings.custom__settings--critday-theme
         h3.setting__title CritDay Theme Settings

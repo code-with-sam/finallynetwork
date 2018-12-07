@@ -22,6 +22,7 @@ const dashboard = {
   enablethemeSettings() {
     const theme = $('.dashboard__theme-select').find(":selected").val()
     console.log(theme, `.custom__settings--${theme}-theme`)
+    $(`.custom__settings`).hide();
     $(`.custom__settings--${theme}-theme`).show();
   },
 
@@ -51,7 +52,8 @@ const dashboard = {
         critdaySite: $('.dashboard__critday-site').val(),
         critdayUniversity: $('.dashboard__critday-university').val(),
         critdayTutor: $('.dashboard__critday-tutor').val(),
-        critdayBio: $('.dashboard__critday-bio').val()
+        critdayBio: $('.dashboard__critday-bio').val(),
+        motionShowComments: $('.dashboard__comments-checkbox').is(':checked')
     }
   }
   
